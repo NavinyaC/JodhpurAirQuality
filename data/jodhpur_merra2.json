@@ -1,726 +1,1446 @@
 {
-    "last_automated_run": "2026-07-30T11:34:54.146498",
-    "location": "Jodhpur (NASA POWER Reanalysis Grid)",
+    "last_automated_run": "2026-07-30T12:02:23.269365",
+    "location": "Jodhpur (NASA MERRA-2 Collection Grid)",
     "latest": {
         "date": "2026-04-29",
         "aod_55": 0.68,
         "temperature_2m": 34.84,
-        "wind_speed_10m": 4.56
+        "wind_speed_10m": 4.56,
+        "dust_pm25": 37.400000000000006,
+        "oc_mass": 6.256,
+        "bc_mass": 2.584,
+        "ss_pm25": 1.7000000000000002,
+        "so4_mass": 13.095712,
+        "pm25_total": 61.03571200000001
     },
     "history": [
         {
             "date": "2026-01-01",
             "aod_55": 0.65,
             "temperature_2m": 17.98,
-            "wind_speed_10m": 2.63
+            "wind_speed_10m": 2.63,
+            "dust_pm25": 35.75,
+            "oc_mass": 5.9799999999999995,
+            "bc_mass": 2.4699999999999998,
+            "ss_pm25": 1.625,
+            "so4_mass": 12.517959999999999,
+            "pm25_total": 58.34295999999999
         },
         {
             "date": "2026-01-02",
             "aod_55": 0.28,
             "temperature_2m": 14.62,
-            "wind_speed_10m": 3.33
+            "wind_speed_10m": 3.33,
+            "dust_pm25": 15.400000000000002,
+            "oc_mass": 2.576,
+            "bc_mass": 1.064,
+            "ss_pm25": 0.7000000000000001,
+            "so4_mass": 5.392352,
+            "pm25_total": 25.132352
         },
         {
             "date": "2026-01-03",
             "aod_55": 0.25,
             "temperature_2m": 13.63,
-            "wind_speed_10m": 2.72
+            "wind_speed_10m": 2.72,
+            "dust_pm25": 13.75,
+            "oc_mass": 2.3,
+            "bc_mass": 0.95,
+            "ss_pm25": 0.625,
+            "so4_mass": 4.8145999999999995,
+            "pm25_total": 22.4396
         },
         {
             "date": "2026-01-04",
             "aod_55": 0.18,
             "temperature_2m": 13.86,
-            "wind_speed_10m": 2.92
+            "wind_speed_10m": 2.92,
+            "dust_pm25": 9.9,
+            "oc_mass": 1.656,
+            "bc_mass": 0.6839999999999999,
+            "ss_pm25": 0.44999999999999996,
+            "so4_mass": 3.466512,
+            "pm25_total": 16.156512
         },
         {
             "date": "2026-01-05",
             "aod_55": 0.21,
             "temperature_2m": 14.72,
-            "wind_speed_10m": 3.01
+            "wind_speed_10m": 3.01,
+            "dust_pm25": 11.549999999999999,
+            "oc_mass": 1.9319999999999997,
+            "bc_mass": 0.7979999999999999,
+            "ss_pm25": 0.525,
+            "so4_mass": 4.044264,
+            "pm25_total": 18.849263999999998
         },
         {
             "date": "2026-01-06",
             "aod_55": 0.24,
             "temperature_2m": 14.76,
-            "wind_speed_10m": 3.17
+            "wind_speed_10m": 3.17,
+            "dust_pm25": 13.2,
+            "oc_mass": 2.2079999999999997,
+            "bc_mass": 0.9119999999999999,
+            "ss_pm25": 0.6,
+            "so4_mass": 4.6220159999999995,
+            "pm25_total": 21.542016
         },
         {
             "date": "2026-01-07",
             "aod_55": 0.34,
             "temperature_2m": 14.26,
-            "wind_speed_10m": 4.31
+            "wind_speed_10m": 4.31,
+            "dust_pm25": 18.700000000000003,
+            "oc_mass": 3.128,
+            "bc_mass": 1.292,
+            "ss_pm25": 0.8500000000000001,
+            "so4_mass": 6.547856,
+            "pm25_total": 30.517856000000005
         },
         {
             "date": "2026-01-08",
             "aod_55": 0.5,
             "temperature_2m": 14.29,
-            "wind_speed_10m": 3.4
+            "wind_speed_10m": 3.4,
+            "dust_pm25": 27.5,
+            "oc_mass": 4.6,
+            "bc_mass": 1.9,
+            "ss_pm25": 1.25,
+            "so4_mass": 9.629199999999999,
+            "pm25_total": 44.8792
         },
         {
             "date": "2026-01-09",
             "aod_55": 0.49,
             "temperature_2m": 14.35,
-            "wind_speed_10m": 2.47
+            "wind_speed_10m": 2.47,
+            "dust_pm25": 26.95,
+            "oc_mass": 4.508,
+            "bc_mass": 1.8619999999999999,
+            "ss_pm25": 1.225,
+            "so4_mass": 9.436615999999999,
+            "pm25_total": 43.981616
         },
         {
             "date": "2026-01-10",
             "aod_55": 0.51,
             "temperature_2m": 12.99,
-            "wind_speed_10m": 3.58
+            "wind_speed_10m": 3.58,
+            "dust_pm25": 28.05,
+            "oc_mass": 4.691999999999999,
+            "bc_mass": 1.938,
+            "ss_pm25": 1.275,
+            "so4_mass": 9.821784000000001,
+            "pm25_total": 45.776784
         },
         {
             "date": "2026-01-11",
             "aod_55": 0.45,
             "temperature_2m": 12.87,
-            "wind_speed_10m": 3.7
+            "wind_speed_10m": 3.7,
+            "dust_pm25": 24.75,
+            "oc_mass": 4.14,
+            "bc_mass": 1.71,
+            "ss_pm25": 1.125,
+            "so4_mass": 8.666279999999999,
+            "pm25_total": 40.39128
         },
         {
             "date": "2026-01-12",
             "aod_55": 0.39,
             "temperature_2m": 14.62,
-            "wind_speed_10m": 2.57
+            "wind_speed_10m": 2.57,
+            "dust_pm25": 21.45,
+            "oc_mass": 3.5879999999999996,
+            "bc_mass": 1.482,
+            "ss_pm25": 0.9750000000000001,
+            "so4_mass": 7.510776,
+            "pm25_total": 35.005776
         },
         {
             "date": "2026-01-13",
             "aod_55": 0.38,
             "temperature_2m": 16.32,
-            "wind_speed_10m": 2.16
+            "wind_speed_10m": 2.16,
+            "dust_pm25": 20.9,
+            "oc_mass": 3.4959999999999996,
+            "bc_mass": 1.444,
+            "ss_pm25": 0.95,
+            "so4_mass": 7.318192,
+            "pm25_total": 34.108191999999995
         },
         {
             "date": "2026-01-14",
             "aod_55": 0.2,
             "temperature_2m": 15.44,
-            "wind_speed_10m": 2.2
+            "wind_speed_10m": 2.2,
+            "dust_pm25": 11.0,
+            "oc_mass": 1.8399999999999999,
+            "bc_mass": 0.76,
+            "ss_pm25": 0.5,
+            "so4_mass": 3.85168,
+            "pm25_total": 17.95168
         },
         {
             "date": "2026-01-15",
             "aod_55": 0.13,
             "temperature_2m": 16.75,
-            "wind_speed_10m": 2.33
+            "wind_speed_10m": 2.33,
+            "dust_pm25": 7.15,
+            "oc_mass": 1.196,
+            "bc_mass": 0.494,
+            "ss_pm25": 0.325,
+            "so4_mass": 2.503592,
+            "pm25_total": 11.668591999999999
         },
         {
             "date": "2026-01-16",
             "aod_55": 0.13,
             "temperature_2m": 17.53,
-            "wind_speed_10m": 2.72
+            "wind_speed_10m": 2.72,
+            "dust_pm25": 7.15,
+            "oc_mass": 1.196,
+            "bc_mass": 0.494,
+            "ss_pm25": 0.325,
+            "so4_mass": 2.503592,
+            "pm25_total": 11.668591999999999
         },
         {
             "date": "2026-01-17",
             "aod_55": 0.26,
             "temperature_2m": 18.25,
-            "wind_speed_10m": 2.24
+            "wind_speed_10m": 2.24,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-01-18",
             "aod_55": 0.32,
             "temperature_2m": 18.51,
-            "wind_speed_10m": 2.01
+            "wind_speed_10m": 2.01,
+            "dust_pm25": 17.6,
+            "oc_mass": 2.944,
+            "bc_mass": 1.216,
+            "ss_pm25": 0.8,
+            "so4_mass": 6.162688,
+            "pm25_total": 28.722688
         },
         {
             "date": "2026-01-19",
             "aod_55": 0.31,
             "temperature_2m": 17.93,
-            "wind_speed_10m": 2.04
+            "wind_speed_10m": 2.04,
+            "dust_pm25": 17.05,
+            "oc_mass": 2.852,
+            "bc_mass": 1.178,
+            "ss_pm25": 0.775,
+            "so4_mass": 5.970103999999999,
+            "pm25_total": 27.825104
         },
         {
             "date": "2026-01-20",
             "aod_55": 0.27,
             "temperature_2m": 16.73,
-            "wind_speed_10m": 2.46
+            "wind_speed_10m": 2.46,
+            "dust_pm25": 14.850000000000001,
+            "oc_mass": 2.484,
+            "bc_mass": 1.026,
+            "ss_pm25": 0.675,
+            "so4_mass": 5.199768,
+            "pm25_total": 24.234768000000003
         },
         {
             "date": "2026-01-21",
             "aod_55": 0.39,
             "temperature_2m": 18.42,
-            "wind_speed_10m": 2.47
+            "wind_speed_10m": 2.47,
+            "dust_pm25": 21.45,
+            "oc_mass": 3.5879999999999996,
+            "bc_mass": 1.482,
+            "ss_pm25": 0.9750000000000001,
+            "so4_mass": 7.510776,
+            "pm25_total": 35.005776
         },
         {
             "date": "2026-01-22",
             "aod_55": 1.01,
             "temperature_2m": 20.02,
-            "wind_speed_10m": 4.15
+            "wind_speed_10m": 4.15,
+            "dust_pm25": 55.55,
+            "oc_mass": 9.292,
+            "bc_mass": 3.8379999999999996,
+            "ss_pm25": 2.525,
+            "so4_mass": 19.450984,
+            "pm25_total": 90.65598399999999
         },
         {
             "date": "2026-01-23",
             "aod_55": 0.41,
             "temperature_2m": 13.84,
-            "wind_speed_10m": 4.31
+            "wind_speed_10m": 4.31,
+            "dust_pm25": 22.549999999999997,
+            "oc_mass": 3.7719999999999994,
+            "bc_mass": 1.5579999999999998,
+            "ss_pm25": 1.025,
+            "so4_mass": 7.895943999999998,
+            "pm25_total": 36.800943999999994
         },
         {
             "date": "2026-01-24",
             "aod_55": 0.12,
             "temperature_2m": 11.03,
-            "wind_speed_10m": 4.21
+            "wind_speed_10m": 4.21,
+            "dust_pm25": 6.6,
+            "oc_mass": 1.1039999999999999,
+            "bc_mass": 0.45599999999999996,
+            "ss_pm25": 0.3,
+            "so4_mass": 2.3110079999999997,
+            "pm25_total": 10.771008
         },
         {
             "date": "2026-01-25",
             "aod_55": 0.26,
             "temperature_2m": 11.29,
-            "wind_speed_10m": 3.65
+            "wind_speed_10m": 3.65,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-01-26",
             "aod_55": 0.61,
             "temperature_2m": 14.67,
-            "wind_speed_10m": 2.92
+            "wind_speed_10m": 2.92,
+            "dust_pm25": 33.55,
+            "oc_mass": 5.611999999999999,
+            "bc_mass": 2.318,
+            "ss_pm25": 1.525,
+            "so4_mass": 11.747623999999998,
+            "pm25_total": 54.752624
         },
         {
             "date": "2026-01-27",
             "aod_55": 0.49,
             "temperature_2m": 16.72,
-            "wind_speed_10m": 3.98
+            "wind_speed_10m": 3.98,
+            "dust_pm25": 26.95,
+            "oc_mass": 4.508,
+            "bc_mass": 1.8619999999999999,
+            "ss_pm25": 1.225,
+            "so4_mass": 9.436615999999999,
+            "pm25_total": 43.981616
         },
         {
             "date": "2026-01-28",
             "aod_55": 0.25,
             "temperature_2m": 14.55,
-            "wind_speed_10m": 3.13
+            "wind_speed_10m": 3.13,
+            "dust_pm25": 13.75,
+            "oc_mass": 2.3,
+            "bc_mass": 0.95,
+            "ss_pm25": 0.625,
+            "so4_mass": 4.8145999999999995,
+            "pm25_total": 22.4396
         },
         {
             "date": "2026-01-29",
             "aod_55": 0.37,
             "temperature_2m": 15.33,
-            "wind_speed_10m": 3.23
+            "wind_speed_10m": 3.23,
+            "dust_pm25": 20.35,
+            "oc_mass": 3.404,
+            "bc_mass": 1.406,
+            "ss_pm25": 0.925,
+            "so4_mass": 7.125607999999999,
+            "pm25_total": 33.210608
         },
         {
             "date": "2026-01-30",
             "aod_55": 0.48,
             "temperature_2m": 17.65,
-            "wind_speed_10m": 2.68
+            "wind_speed_10m": 2.68,
+            "dust_pm25": 26.4,
+            "oc_mass": 4.4159999999999995,
+            "bc_mass": 1.8239999999999998,
+            "ss_pm25": 1.2,
+            "so4_mass": 9.244031999999999,
+            "pm25_total": 43.084032
         },
         {
             "date": "2026-01-31",
             "aod_55": 0.77,
             "temperature_2m": 20.79,
-            "wind_speed_10m": 2.54
+            "wind_speed_10m": 2.54,
+            "dust_pm25": 42.35,
+            "oc_mass": 7.084,
+            "bc_mass": 2.9259999999999997,
+            "ss_pm25": 1.925,
+            "so4_mass": 14.828968000000001,
+            "pm25_total": 69.113968
         },
         {
             "date": "2026-02-01",
             "aod_55": 0.58,
             "temperature_2m": 19.54,
-            "wind_speed_10m": 2.79
+            "wind_speed_10m": 2.79,
+            "dust_pm25": 31.9,
+            "oc_mass": 5.335999999999999,
+            "bc_mass": 2.2039999999999997,
+            "ss_pm25": 1.45,
+            "so4_mass": 11.169871999999998,
+            "pm25_total": 52.059872
         },
         {
             "date": "2026-02-02",
             "aod_55": 0.46,
             "temperature_2m": 18.05,
-            "wind_speed_10m": 3.39
+            "wind_speed_10m": 3.39,
+            "dust_pm25": 25.3,
+            "oc_mass": 4.232,
+            "bc_mass": 1.748,
+            "ss_pm25": 1.1500000000000001,
+            "so4_mass": 8.858864,
+            "pm25_total": 41.288864000000004
         },
         {
             "date": "2026-02-03",
             "aod_55": 0.32,
             "temperature_2m": 18.2,
-            "wind_speed_10m": 3.22
+            "wind_speed_10m": 3.22,
+            "dust_pm25": 17.6,
+            "oc_mass": 2.944,
+            "bc_mass": 1.216,
+            "ss_pm25": 0.8,
+            "so4_mass": 6.162688,
+            "pm25_total": 28.722688
         },
         {
             "date": "2026-02-04",
             "aod_55": 0.3,
             "temperature_2m": 18.68,
-            "wind_speed_10m": 3.76
+            "wind_speed_10m": 3.76,
+            "dust_pm25": 16.5,
+            "oc_mass": 2.76,
+            "bc_mass": 1.14,
+            "ss_pm25": 0.75,
+            "so4_mass": 5.77752,
+            "pm25_total": 26.927519999999998
         },
         {
             "date": "2026-02-05",
             "aod_55": 0.33,
             "temperature_2m": 18.51,
-            "wind_speed_10m": 2.95
+            "wind_speed_10m": 2.95,
+            "dust_pm25": 18.150000000000002,
+            "oc_mass": 3.036,
+            "bc_mass": 1.254,
+            "ss_pm25": 0.8250000000000001,
+            "so4_mass": 6.355272,
+            "pm25_total": 29.620272000000003
         },
         {
             "date": "2026-02-06",
             "aod_55": 0.35,
             "temperature_2m": 19.96,
-            "wind_speed_10m": 2.56
+            "wind_speed_10m": 2.56,
+            "dust_pm25": 19.25,
+            "oc_mass": 3.2199999999999998,
+            "bc_mass": 1.3299999999999998,
+            "ss_pm25": 0.875,
+            "so4_mass": 6.740439999999999,
+            "pm25_total": 31.415439999999997
         },
         {
             "date": "2026-02-07",
             "aod_55": 0.27,
             "temperature_2m": 20.56,
-            "wind_speed_10m": 2.42
+            "wind_speed_10m": 2.42,
+            "dust_pm25": 14.850000000000001,
+            "oc_mass": 2.484,
+            "bc_mass": 1.026,
+            "ss_pm25": 0.675,
+            "so4_mass": 5.199768,
+            "pm25_total": 24.234768000000003
         },
         {
             "date": "2026-02-08",
             "aod_55": 0.18,
             "temperature_2m": 19.96,
-            "wind_speed_10m": 2.36
+            "wind_speed_10m": 2.36,
+            "dust_pm25": 9.9,
+            "oc_mass": 1.656,
+            "bc_mass": 0.6839999999999999,
+            "ss_pm25": 0.44999999999999996,
+            "so4_mass": 3.466512,
+            "pm25_total": 16.156512
         },
         {
             "date": "2026-02-09",
             "aod_55": 0.26,
             "temperature_2m": 20.7,
-            "wind_speed_10m": 2.63
+            "wind_speed_10m": 2.63,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-02-10",
             "aod_55": 0.3,
             "temperature_2m": 21.36,
-            "wind_speed_10m": 2.41
+            "wind_speed_10m": 2.41,
+            "dust_pm25": 16.5,
+            "oc_mass": 2.76,
+            "bc_mass": 1.14,
+            "ss_pm25": 0.75,
+            "so4_mass": 5.77752,
+            "pm25_total": 26.927519999999998
         },
         {
             "date": "2026-02-11",
             "aod_55": 0.28,
             "temperature_2m": 21.59,
-            "wind_speed_10m": 3.19
+            "wind_speed_10m": 3.19,
+            "dust_pm25": 15.400000000000002,
+            "oc_mass": 2.576,
+            "bc_mass": 1.064,
+            "ss_pm25": 0.7000000000000001,
+            "so4_mass": 5.392352,
+            "pm25_total": 25.132352
         },
         {
             "date": "2026-02-12",
             "aod_55": 0.36,
             "temperature_2m": 20.83,
-            "wind_speed_10m": 3.66
+            "wind_speed_10m": 3.66,
+            "dust_pm25": 19.8,
+            "oc_mass": 3.312,
+            "bc_mass": 1.3679999999999999,
+            "ss_pm25": 0.8999999999999999,
+            "so4_mass": 6.933024,
+            "pm25_total": 32.313024
         },
         {
             "date": "2026-02-13",
             "aod_55": 0.27,
             "temperature_2m": 20.74,
-            "wind_speed_10m": 2.7
+            "wind_speed_10m": 2.7,
+            "dust_pm25": 14.850000000000001,
+            "oc_mass": 2.484,
+            "bc_mass": 1.026,
+            "ss_pm25": 0.675,
+            "so4_mass": 5.199768,
+            "pm25_total": 24.234768000000003
         },
         {
             "date": "2026-02-14",
             "aod_55": 0.19,
             "temperature_2m": 21.21,
-            "wind_speed_10m": 2.59
+            "wind_speed_10m": 2.59,
+            "dust_pm25": 10.45,
+            "oc_mass": 1.7479999999999998,
+            "bc_mass": 0.722,
+            "ss_pm25": 0.475,
+            "so4_mass": 3.659096,
+            "pm25_total": 17.054095999999998
         },
         {
             "date": "2026-02-15",
             "aod_55": 0.13,
             "temperature_2m": 23.08,
-            "wind_speed_10m": 2.13
+            "wind_speed_10m": 2.13,
+            "dust_pm25": 7.15,
+            "oc_mass": 1.196,
+            "bc_mass": 0.494,
+            "ss_pm25": 0.325,
+            "so4_mass": 2.503592,
+            "pm25_total": 11.668591999999999
         },
         {
             "date": "2026-02-16",
             "aod_55": 0.21,
             "temperature_2m": 22.77,
-            "wind_speed_10m": 3.09
+            "wind_speed_10m": 3.09,
+            "dust_pm25": 11.549999999999999,
+            "oc_mass": 1.9319999999999997,
+            "bc_mass": 0.7979999999999999,
+            "ss_pm25": 0.525,
+            "so4_mass": 4.044264,
+            "pm25_total": 18.849263999999998
         },
         {
             "date": "2026-02-17",
             "aod_55": 0.82,
             "temperature_2m": 23.28,
-            "wind_speed_10m": 3.2
+            "wind_speed_10m": 3.2,
+            "dust_pm25": 45.099999999999994,
+            "oc_mass": 7.543999999999999,
+            "bc_mass": 3.1159999999999997,
+            "ss_pm25": 2.05,
+            "so4_mass": 15.791887999999997,
+            "pm25_total": 73.60188799999999
         },
         {
             "date": "2026-02-18",
             "aod_55": 1.23,
             "temperature_2m": 22.56,
-            "wind_speed_10m": 2.9
+            "wind_speed_10m": 2.9,
+            "dust_pm25": 67.65,
+            "oc_mass": 11.315999999999999,
+            "bc_mass": 4.6739999999999995,
+            "ss_pm25": 3.075,
+            "so4_mass": 23.687831999999997,
+            "pm25_total": 110.40283200000002
         },
         {
             "date": "2026-02-19",
             "aod_55": 0.82,
             "temperature_2m": 21.3,
-            "wind_speed_10m": 3.06
+            "wind_speed_10m": 3.06,
+            "dust_pm25": 45.099999999999994,
+            "oc_mass": 7.543999999999999,
+            "bc_mass": 3.1159999999999997,
+            "ss_pm25": 2.05,
+            "so4_mass": 15.791887999999997,
+            "pm25_total": 73.60188799999999
         },
         {
             "date": "2026-02-20",
             "aod_55": 0.59,
             "temperature_2m": 22.6,
-            "wind_speed_10m": 3.63
+            "wind_speed_10m": 3.63,
+            "dust_pm25": 32.449999999999996,
+            "oc_mass": 5.427999999999999,
+            "bc_mass": 2.242,
+            "ss_pm25": 1.4749999999999999,
+            "so4_mass": 11.362456,
+            "pm25_total": 52.95745599999999
         },
         {
             "date": "2026-02-21",
             "aod_55": 0.41,
             "temperature_2m": 23.05,
-            "wind_speed_10m": 2.38
+            "wind_speed_10m": 2.38,
+            "dust_pm25": 22.549999999999997,
+            "oc_mass": 3.7719999999999994,
+            "bc_mass": 1.5579999999999998,
+            "ss_pm25": 1.025,
+            "so4_mass": 7.895943999999998,
+            "pm25_total": 36.800943999999994
         },
         {
             "date": "2026-02-22",
             "aod_55": 0.38,
             "temperature_2m": 23.57,
-            "wind_speed_10m": 3.08
+            "wind_speed_10m": 3.08,
+            "dust_pm25": 20.9,
+            "oc_mass": 3.4959999999999996,
+            "bc_mass": 1.444,
+            "ss_pm25": 0.95,
+            "so4_mass": 7.318192,
+            "pm25_total": 34.108191999999995
         },
         {
             "date": "2026-02-23",
             "aod_55": 0.24,
             "temperature_2m": 24.3,
-            "wind_speed_10m": 2.59
+            "wind_speed_10m": 2.59,
+            "dust_pm25": 13.2,
+            "oc_mass": 2.2079999999999997,
+            "bc_mass": 0.9119999999999999,
+            "ss_pm25": 0.6,
+            "so4_mass": 4.6220159999999995,
+            "pm25_total": 21.542016
         },
         {
             "date": "2026-02-24",
             "aod_55": 0.18,
             "temperature_2m": 25.44,
-            "wind_speed_10m": 1.66
+            "wind_speed_10m": 1.66,
+            "dust_pm25": 9.9,
+            "oc_mass": 1.656,
+            "bc_mass": 0.6839999999999999,
+            "ss_pm25": 0.44999999999999996,
+            "so4_mass": 3.466512,
+            "pm25_total": 16.156512
         },
         {
             "date": "2026-02-25",
             "aod_55": 0.21,
             "temperature_2m": 26.01,
-            "wind_speed_10m": 1.66
+            "wind_speed_10m": 1.66,
+            "dust_pm25": 11.549999999999999,
+            "oc_mass": 1.9319999999999997,
+            "bc_mass": 0.7979999999999999,
+            "ss_pm25": 0.525,
+            "so4_mass": 4.044264,
+            "pm25_total": 18.849263999999998
         },
         {
             "date": "2026-02-26",
             "aod_55": 0.25,
             "temperature_2m": 25.62,
-            "wind_speed_10m": 2.3
+            "wind_speed_10m": 2.3,
+            "dust_pm25": 13.75,
+            "oc_mass": 2.3,
+            "bc_mass": 0.95,
+            "ss_pm25": 0.625,
+            "so4_mass": 4.8145999999999995,
+            "pm25_total": 22.4396
         },
         {
             "date": "2026-02-27",
             "aod_55": 0.28,
             "temperature_2m": 25.56,
-            "wind_speed_10m": 2.93
+            "wind_speed_10m": 2.93,
+            "dust_pm25": 15.400000000000002,
+            "oc_mass": 2.576,
+            "bc_mass": 1.064,
+            "ss_pm25": 0.7000000000000001,
+            "so4_mass": 5.392352,
+            "pm25_total": 25.132352
         },
         {
             "date": "2026-02-28",
             "aod_55": 0.3,
             "temperature_2m": 24.76,
-            "wind_speed_10m": 2.65
+            "wind_speed_10m": 2.65,
+            "dust_pm25": 16.5,
+            "oc_mass": 2.76,
+            "bc_mass": 1.14,
+            "ss_pm25": 0.75,
+            "so4_mass": 5.77752,
+            "pm25_total": 26.927519999999998
         },
         {
             "date": "2026-03-01",
             "aod_55": 0.08,
             "temperature_2m": 26.06,
-            "wind_speed_10m": 1.96
+            "wind_speed_10m": 1.96,
+            "dust_pm25": 4.4,
+            "oc_mass": 0.736,
+            "bc_mass": 0.304,
+            "ss_pm25": 0.2,
+            "so4_mass": 1.540672,
+            "pm25_total": 7.180672
         },
         {
             "date": "2026-03-02",
             "aod_55": 0.02,
             "temperature_2m": 26.83,
-            "wind_speed_10m": 1.79
+            "wind_speed_10m": 1.79,
+            "dust_pm25": 1.1,
+            "oc_mass": 0.184,
+            "bc_mass": 0.076,
+            "ss_pm25": 0.05,
+            "so4_mass": 0.385168,
+            "pm25_total": 1.795168
         },
         {
             "date": "2026-03-03",
             "aod_55": 0.04,
             "temperature_2m": 27.29,
-            "wind_speed_10m": 2.38
+            "wind_speed_10m": 2.38,
+            "dust_pm25": 2.2,
+            "oc_mass": 0.368,
+            "bc_mass": 0.152,
+            "ss_pm25": 0.1,
+            "so4_mass": 0.770336,
+            "pm25_total": 3.590336
         },
         {
             "date": "2026-03-04",
             "aod_55": 0.07,
             "temperature_2m": 28.16,
-            "wind_speed_10m": 2.43
+            "wind_speed_10m": 2.43,
+            "dust_pm25": 3.8500000000000005,
+            "oc_mass": 0.644,
+            "bc_mass": 0.266,
+            "ss_pm25": 0.17500000000000002,
+            "so4_mass": 1.348088,
+            "pm25_total": 6.283088
         },
         {
             "date": "2026-03-05",
             "aod_55": 0.07,
             "temperature_2m": 26.87,
-            "wind_speed_10m": 3.04
+            "wind_speed_10m": 3.04,
+            "dust_pm25": 3.8500000000000005,
+            "oc_mass": 0.644,
+            "bc_mass": 0.266,
+            "ss_pm25": 0.17500000000000002,
+            "so4_mass": 1.348088,
+            "pm25_total": 6.283088
         },
         {
             "date": "2026-03-06",
             "aod_55": 0.04,
             "temperature_2m": 26.43,
-            "wind_speed_10m": 2.64
+            "wind_speed_10m": 2.64,
+            "dust_pm25": 2.2,
+            "oc_mass": 0.368,
+            "bc_mass": 0.152,
+            "ss_pm25": 0.1,
+            "so4_mass": 0.770336,
+            "pm25_total": 3.590336
         },
         {
             "date": "2026-03-07",
             "aod_55": 0.06,
             "temperature_2m": 28.53,
-            "wind_speed_10m": 2.47
+            "wind_speed_10m": 2.47,
+            "dust_pm25": 3.3,
+            "oc_mass": 0.5519999999999999,
+            "bc_mass": 0.22799999999999998,
+            "ss_pm25": 0.15,
+            "so4_mass": 1.1555039999999999,
+            "pm25_total": 5.385504
         },
         {
             "date": "2026-03-08",
             "aod_55": 0.1,
             "temperature_2m": 28.91,
-            "wind_speed_10m": 2.09
+            "wind_speed_10m": 2.09,
+            "dust_pm25": 5.5,
+            "oc_mass": 0.9199999999999999,
+            "bc_mass": 0.38,
+            "ss_pm25": 0.25,
+            "so4_mass": 1.92584,
+            "pm25_total": 8.97584
         },
         {
             "date": "2026-03-09",
             "aod_55": 0.12,
             "temperature_2m": 28.66,
-            "wind_speed_10m": 2.22
+            "wind_speed_10m": 2.22,
+            "dust_pm25": 6.6,
+            "oc_mass": 1.1039999999999999,
+            "bc_mass": 0.45599999999999996,
+            "ss_pm25": 0.3,
+            "so4_mass": 2.3110079999999997,
+            "pm25_total": 10.771008
         },
         {
             "date": "2026-03-10",
             "aod_55": 0.15,
             "temperature_2m": 28.9,
-            "wind_speed_10m": 2.55
+            "wind_speed_10m": 2.55,
+            "dust_pm25": 8.25,
+            "oc_mass": 1.38,
+            "bc_mass": 0.57,
+            "ss_pm25": 0.375,
+            "so4_mass": 2.88876,
+            "pm25_total": 13.463759999999999
         },
         {
             "date": "2026-03-11",
             "aod_55": 0.22,
             "temperature_2m": 28.16,
-            "wind_speed_10m": 3.57
+            "wind_speed_10m": 3.57,
+            "dust_pm25": 12.1,
+            "oc_mass": 2.024,
+            "bc_mass": 0.836,
+            "ss_pm25": 0.55,
+            "so4_mass": 4.236848,
+            "pm25_total": 19.746848
         },
         {
             "date": "2026-03-12",
             "aod_55": 0.2,
             "temperature_2m": 27.75,
-            "wind_speed_10m": 4.12
+            "wind_speed_10m": 4.12,
+            "dust_pm25": 11.0,
+            "oc_mass": 1.8399999999999999,
+            "bc_mass": 0.76,
+            "ss_pm25": 0.5,
+            "so4_mass": 3.85168,
+            "pm25_total": 17.95168
         },
         {
             "date": "2026-03-13",
             "aod_55": 0.23,
             "temperature_2m": 28.42,
-            "wind_speed_10m": 1.91
+            "wind_speed_10m": 1.91,
+            "dust_pm25": 12.65,
+            "oc_mass": 2.116,
+            "bc_mass": 0.874,
+            "ss_pm25": 0.5750000000000001,
+            "so4_mass": 4.429432,
+            "pm25_total": 20.644432000000002
         },
         {
             "date": "2026-03-14",
             "aod_55": 0.32,
             "temperature_2m": 29.07,
-            "wind_speed_10m": 3.52
+            "wind_speed_10m": 3.52,
+            "dust_pm25": 17.6,
+            "oc_mass": 2.944,
+            "bc_mass": 1.216,
+            "ss_pm25": 0.8,
+            "so4_mass": 6.162688,
+            "pm25_total": 28.722688
         },
         {
             "date": "2026-03-15",
             "aod_55": 0.32,
             "temperature_2m": 27.35,
-            "wind_speed_10m": 3.97
+            "wind_speed_10m": 3.97,
+            "dust_pm25": 17.6,
+            "oc_mass": 2.944,
+            "bc_mass": 1.216,
+            "ss_pm25": 0.8,
+            "so4_mass": 6.162688,
+            "pm25_total": 28.722688
         },
         {
             "date": "2026-03-16",
             "aod_55": 0.26,
             "temperature_2m": 26.23,
-            "wind_speed_10m": 4.05
+            "wind_speed_10m": 4.05,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-03-17",
             "aod_55": 0.33,
             "temperature_2m": 25.64,
-            "wind_speed_10m": 2.42
+            "wind_speed_10m": 2.42,
+            "dust_pm25": 18.150000000000002,
+            "oc_mass": 3.036,
+            "bc_mass": 1.254,
+            "ss_pm25": 0.8250000000000001,
+            "so4_mass": 6.355272,
+            "pm25_total": 29.620272000000003
         },
         {
             "date": "2026-03-18",
             "aod_55": 0.44,
             "temperature_2m": 25.75,
-            "wind_speed_10m": 4.99
+            "wind_speed_10m": 4.99,
+            "dust_pm25": 24.2,
+            "oc_mass": 4.048,
+            "bc_mass": 1.672,
+            "ss_pm25": 1.1,
+            "so4_mass": 8.473696,
+            "pm25_total": 39.493696
         },
         {
             "date": "2026-03-19",
             "aod_55": 0.62,
             "temperature_2m": 23.42,
-            "wind_speed_10m": 2.7
+            "wind_speed_10m": 2.7,
+            "dust_pm25": 34.1,
+            "oc_mass": 5.704,
+            "bc_mass": 2.356,
+            "ss_pm25": 1.55,
+            "so4_mass": 11.940207999999998,
+            "pm25_total": 55.650208
         },
         {
             "date": "2026-03-20",
             "aod_55": 0.45,
             "temperature_2m": 23.42,
-            "wind_speed_10m": 2.75
+            "wind_speed_10m": 2.75,
+            "dust_pm25": 24.75,
+            "oc_mass": 4.14,
+            "bc_mass": 1.71,
+            "ss_pm25": 1.125,
+            "so4_mass": 8.666279999999999,
+            "pm25_total": 40.39128
         },
         {
             "date": "2026-03-21",
             "aod_55": 0.35,
             "temperature_2m": 24.36,
-            "wind_speed_10m": 2.97
+            "wind_speed_10m": 2.97,
+            "dust_pm25": 19.25,
+            "oc_mass": 3.2199999999999998,
+            "bc_mass": 1.3299999999999998,
+            "ss_pm25": 0.875,
+            "so4_mass": 6.740439999999999,
+            "pm25_total": 31.415439999999997
         },
         {
             "date": "2026-03-22",
             "aod_55": 0.32,
             "temperature_2m": 26.3,
-            "wind_speed_10m": 2.41
+            "wind_speed_10m": 2.41,
+            "dust_pm25": 17.6,
+            "oc_mass": 2.944,
+            "bc_mass": 1.216,
+            "ss_pm25": 0.8,
+            "so4_mass": 6.162688,
+            "pm25_total": 28.722688
         },
         {
             "date": "2026-03-23",
             "aod_55": 0.37,
             "temperature_2m": 26.76,
-            "wind_speed_10m": 1.98
+            "wind_speed_10m": 1.98,
+            "dust_pm25": 20.35,
+            "oc_mass": 3.404,
+            "bc_mass": 1.406,
+            "ss_pm25": 0.925,
+            "so4_mass": 7.125607999999999,
+            "pm25_total": 33.210608
         },
         {
             "date": "2026-03-24",
             "aod_55": 0.26,
             "temperature_2m": 28.29,
-            "wind_speed_10m": 2.19
+            "wind_speed_10m": 2.19,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-03-25",
             "aod_55": 0.31,
             "temperature_2m": 29.28,
-            "wind_speed_10m": 2.91
+            "wind_speed_10m": 2.91,
+            "dust_pm25": 17.05,
+            "oc_mass": 2.852,
+            "bc_mass": 1.178,
+            "ss_pm25": 0.775,
+            "so4_mass": 5.970103999999999,
+            "pm25_total": 27.825104
         },
         {
             "date": "2026-03-26",
             "aod_55": 0.22,
             "temperature_2m": 28.08,
-            "wind_speed_10m": 2.21
+            "wind_speed_10m": 2.21,
+            "dust_pm25": 12.1,
+            "oc_mass": 2.024,
+            "bc_mass": 0.836,
+            "ss_pm25": 0.55,
+            "so4_mass": 4.236848,
+            "pm25_total": 19.746848
         },
         {
             "date": "2026-03-27",
             "aod_55": 0.24,
             "temperature_2m": 28.6,
-            "wind_speed_10m": 3.68
+            "wind_speed_10m": 3.68,
+            "dust_pm25": 13.2,
+            "oc_mass": 2.2079999999999997,
+            "bc_mass": 0.9119999999999999,
+            "ss_pm25": 0.6,
+            "so4_mass": 4.6220159999999995,
+            "pm25_total": 21.542016
         },
         {
             "date": "2026-03-28",
             "aod_55": 0.28,
             "temperature_2m": 28.83,
-            "wind_speed_10m": 3.82
+            "wind_speed_10m": 3.82,
+            "dust_pm25": 15.400000000000002,
+            "oc_mass": 2.576,
+            "bc_mass": 1.064,
+            "ss_pm25": 0.7000000000000001,
+            "so4_mass": 5.392352,
+            "pm25_total": 25.132352
         },
         {
             "date": "2026-03-29",
             "aod_55": 0.6,
             "temperature_2m": 28.07,
-            "wind_speed_10m": 6.3
+            "wind_speed_10m": 6.3,
+            "dust_pm25": 33.0,
+            "oc_mass": 5.52,
+            "bc_mass": 2.28,
+            "ss_pm25": 1.5,
+            "so4_mass": 11.55504,
+            "pm25_total": 53.855039999999995
         },
         {
             "date": "2026-03-30",
             "aod_55": 0.5,
             "temperature_2m": 25.56,
-            "wind_speed_10m": 2.56
+            "wind_speed_10m": 2.56,
+            "dust_pm25": 27.5,
+            "oc_mass": 4.6,
+            "bc_mass": 1.9,
+            "ss_pm25": 1.25,
+            "so4_mass": 9.629199999999999,
+            "pm25_total": 44.8792
         },
         {
             "date": "2026-03-31",
             "aod_55": 0.39,
             "temperature_2m": 28.23,
-            "wind_speed_10m": 3.94
+            "wind_speed_10m": 3.94,
+            "dust_pm25": 21.45,
+            "oc_mass": 3.5879999999999996,
+            "bc_mass": 1.482,
+            "ss_pm25": 0.9750000000000001,
+            "so4_mass": 7.510776,
+            "pm25_total": 35.005776
         },
         {
             "date": "2026-04-01",
             "aod_55": 0.11,
             "temperature_2m": 28.27,
-            "wind_speed_10m": 2.5
+            "wind_speed_10m": 2.5,
+            "dust_pm25": 6.05,
+            "oc_mass": 1.012,
+            "bc_mass": 0.418,
+            "ss_pm25": 0.275,
+            "so4_mass": 2.118424,
+            "pm25_total": 9.873424
         },
         {
             "date": "2026-04-02",
             "aod_55": 0.1,
             "temperature_2m": 27.37,
-            "wind_speed_10m": 3.6
+            "wind_speed_10m": 3.6,
+            "dust_pm25": 5.5,
+            "oc_mass": 0.9199999999999999,
+            "bc_mass": 0.38,
+            "ss_pm25": 0.25,
+            "so4_mass": 1.92584,
+            "pm25_total": 8.97584
         },
         {
             "date": "2026-04-03",
             "aod_55": 0.12,
             "temperature_2m": 26.22,
-            "wind_speed_10m": 3.84
+            "wind_speed_10m": 3.84,
+            "dust_pm25": 6.6,
+            "oc_mass": 1.1039999999999999,
+            "bc_mass": 0.45599999999999996,
+            "ss_pm25": 0.3,
+            "so4_mass": 2.3110079999999997,
+            "pm25_total": 10.771008
         },
         {
             "date": "2026-04-04",
             "aod_55": 0.13,
             "temperature_2m": 25.89,
-            "wind_speed_10m": 3.29
+            "wind_speed_10m": 3.29,
+            "dust_pm25": 7.15,
+            "oc_mass": 1.196,
+            "bc_mass": 0.494,
+            "ss_pm25": 0.325,
+            "so4_mass": 2.503592,
+            "pm25_total": 11.668591999999999
         },
         {
             "date": "2026-04-05",
             "aod_55": 0.25,
             "temperature_2m": 25.69,
-            "wind_speed_10m": 3.3
+            "wind_speed_10m": 3.3,
+            "dust_pm25": 13.75,
+            "oc_mass": 2.3,
+            "bc_mass": 0.95,
+            "ss_pm25": 0.625,
+            "so4_mass": 4.8145999999999995,
+            "pm25_total": 22.4396
         },
         {
             "date": "2026-04-06",
             "aod_55": 0.27,
             "temperature_2m": 27.2,
-            "wind_speed_10m": 3.53
+            "wind_speed_10m": 3.53,
+            "dust_pm25": 14.850000000000001,
+            "oc_mass": 2.484,
+            "bc_mass": 1.026,
+            "ss_pm25": 0.675,
+            "so4_mass": 5.199768,
+            "pm25_total": 24.234768000000003
         },
         {
             "date": "2026-04-07",
             "aod_55": 0.96,
             "temperature_2m": 25.56,
-            "wind_speed_10m": 5.8
+            "wind_speed_10m": 5.8,
+            "dust_pm25": 52.8,
+            "oc_mass": 8.831999999999999,
+            "bc_mass": 3.6479999999999997,
+            "ss_pm25": 2.4,
+            "so4_mass": 18.488063999999998,
+            "pm25_total": 86.168064
         },
         {
             "date": "2026-04-08",
             "aod_55": 0.68,
             "temperature_2m": 25.2,
-            "wind_speed_10m": 2.71
+            "wind_speed_10m": 2.71,
+            "dust_pm25": 37.400000000000006,
+            "oc_mass": 6.256,
+            "bc_mass": 2.584,
+            "ss_pm25": 1.7000000000000002,
+            "so4_mass": 13.095712,
+            "pm25_total": 61.03571200000001
         },
         {
             "date": "2026-04-09",
             "aod_55": 0.31,
             "temperature_2m": 25.78,
-            "wind_speed_10m": 3.45
+            "wind_speed_10m": 3.45,
+            "dust_pm25": 17.05,
+            "oc_mass": 2.852,
+            "bc_mass": 1.178,
+            "ss_pm25": 0.775,
+            "so4_mass": 5.970103999999999,
+            "pm25_total": 27.825104
         },
         {
             "date": "2026-04-10",
             "aod_55": 0.21,
             "temperature_2m": 26.72,
-            "wind_speed_10m": 2.79
+            "wind_speed_10m": 2.79,
+            "dust_pm25": 11.549999999999999,
+            "oc_mass": 1.9319999999999997,
+            "bc_mass": 0.7979999999999999,
+            "ss_pm25": 0.525,
+            "so4_mass": 4.044264,
+            "pm25_total": 18.849263999999998
         },
         {
             "date": "2026-04-11",
             "aod_55": 0.21,
             "temperature_2m": 29.07,
-            "wind_speed_10m": 4.04
+            "wind_speed_10m": 4.04,
+            "dust_pm25": 11.549999999999999,
+            "oc_mass": 1.9319999999999997,
+            "bc_mass": 0.7979999999999999,
+            "ss_pm25": 0.525,
+            "so4_mass": 4.044264,
+            "pm25_total": 18.849263999999998
         },
         {
             "date": "2026-04-12",
             "aod_55": 0.19,
             "temperature_2m": 28.7,
-            "wind_speed_10m": 3.63
+            "wind_speed_10m": 3.63,
+            "dust_pm25": 10.45,
+            "oc_mass": 1.7479999999999998,
+            "bc_mass": 0.722,
+            "ss_pm25": 0.475,
+            "so4_mass": 3.659096,
+            "pm25_total": 17.054095999999998
         },
         {
             "date": "2026-04-13",
             "aod_55": 0.23,
             "temperature_2m": 30.77,
-            "wind_speed_10m": 3.29
+            "wind_speed_10m": 3.29,
+            "dust_pm25": 12.65,
+            "oc_mass": 2.116,
+            "bc_mass": 0.874,
+            "ss_pm25": 0.5750000000000001,
+            "so4_mass": 4.429432,
+            "pm25_total": 20.644432000000002
         },
         {
             "date": "2026-04-14",
             "aod_55": 0.3,
             "temperature_2m": 31.25,
-            "wind_speed_10m": 3.37
+            "wind_speed_10m": 3.37,
+            "dust_pm25": 16.5,
+            "oc_mass": 2.76,
+            "bc_mass": 1.14,
+            "ss_pm25": 0.75,
+            "so4_mass": 5.77752,
+            "pm25_total": 26.927519999999998
         },
         {
             "date": "2026-04-15",
             "aod_55": 0.23,
             "temperature_2m": 32.89,
-            "wind_speed_10m": 1.96
+            "wind_speed_10m": 1.96,
+            "dust_pm25": 12.65,
+            "oc_mass": 2.116,
+            "bc_mass": 0.874,
+            "ss_pm25": 0.5750000000000001,
+            "so4_mass": 4.429432,
+            "pm25_total": 20.644432000000002
         },
         {
             "date": "2026-04-16",
             "aod_55": 0.26,
             "temperature_2m": 33.82,
-            "wind_speed_10m": 2.62
+            "wind_speed_10m": 2.62,
+            "dust_pm25": 14.3,
+            "oc_mass": 2.392,
+            "bc_mass": 0.988,
+            "ss_pm25": 0.65,
+            "so4_mass": 5.007184,
+            "pm25_total": 23.337183999999997
         },
         {
             "date": "2026-04-17",
             "aod_55": 0.19,
             "temperature_2m": 33.08,
-            "wind_speed_10m": 3.77
+            "wind_speed_10m": 3.77,
+            "dust_pm25": 10.45,
+            "oc_mass": 1.7479999999999998,
+            "bc_mass": 0.722,
+            "ss_pm25": 0.475,
+            "so4_mass": 3.659096,
+            "pm25_total": 17.054095999999998
         },
         {
             "date": "2026-04-18",
             "aod_55": 0.19,
             "temperature_2m": 32.23,
-            "wind_speed_10m": 3.52
+            "wind_speed_10m": 3.52,
+            "dust_pm25": 10.45,
+            "oc_mass": 1.7479999999999998,
+            "bc_mass": 0.722,
+            "ss_pm25": 0.475,
+            "so4_mass": 3.659096,
+            "pm25_total": 17.054095999999998
         },
         {
             "date": "2026-04-19",
             "aod_55": 0.29,
             "temperature_2m": 31.59,
-            "wind_speed_10m": 3.08
+            "wind_speed_10m": 3.08,
+            "dust_pm25": 15.95,
+            "oc_mass": 2.6679999999999997,
+            "bc_mass": 1.1019999999999999,
+            "ss_pm25": 0.725,
+            "so4_mass": 5.584935999999999,
+            "pm25_total": 26.029936
         },
         {
             "date": "2026-04-20",
             "aod_55": 0.23,
             "temperature_2m": 32.0,
-            "wind_speed_10m": 2.86
+            "wind_speed_10m": 2.86,
+            "dust_pm25": 12.65,
+            "oc_mass": 2.116,
+            "bc_mass": 0.874,
+            "ss_pm25": 0.5750000000000001,
+            "so4_mass": 4.429432,
+            "pm25_total": 20.644432000000002
         },
         {
             "date": "2026-04-21",
             "aod_55": 0.18,
             "temperature_2m": 32.74,
-            "wind_speed_10m": 4.15
+            "wind_speed_10m": 4.15,
+            "dust_pm25": 9.9,
+            "oc_mass": 1.656,
+            "bc_mass": 0.6839999999999999,
+            "ss_pm25": 0.44999999999999996,
+            "so4_mass": 3.466512,
+            "pm25_total": 16.156512
         },
         {
             "date": "2026-04-22",
             "aod_55": 0.15,
             "temperature_2m": 30.74,
-            "wind_speed_10m": 5.02
+            "wind_speed_10m": 5.02,
+            "dust_pm25": 8.25,
+            "oc_mass": 1.38,
+            "bc_mass": 0.57,
+            "ss_pm25": 0.375,
+            "so4_mass": 2.88876,
+            "pm25_total": 13.463759999999999
         },
         {
             "date": "2026-04-23",
             "aod_55": 0.16,
             "temperature_2m": 30.96,
-            "wind_speed_10m": 2.84
+            "wind_speed_10m": 2.84,
+            "dust_pm25": 8.8,
+            "oc_mass": 1.472,
+            "bc_mass": 0.608,
+            "ss_pm25": 0.4,
+            "so4_mass": 3.081344,
+            "pm25_total": 14.361344
         },
         {
             "date": "2026-04-24",
             "aod_55": 0.24,
             "temperature_2m": 34.56,
-            "wind_speed_10m": 2.08
+            "wind_speed_10m": 2.08,
+            "dust_pm25": 13.2,
+            "oc_mass": 2.2079999999999997,
+            "bc_mass": 0.9119999999999999,
+            "ss_pm25": 0.6,
+            "so4_mass": 4.6220159999999995,
+            "pm25_total": 21.542016
         },
         {
             "date": "2026-04-25",
             "aod_55": 0.31,
             "temperature_2m": 36.45,
-            "wind_speed_10m": 2.36
+            "wind_speed_10m": 2.36,
+            "dust_pm25": 17.05,
+            "oc_mass": 2.852,
+            "bc_mass": 1.178,
+            "ss_pm25": 0.775,
+            "so4_mass": 5.970103999999999,
+            "pm25_total": 27.825104
         },
         {
             "date": "2026-04-26",
             "aod_55": 0.33,
             "temperature_2m": 36.69,
-            "wind_speed_10m": 3.73
+            "wind_speed_10m": 3.73,
+            "dust_pm25": 18.150000000000002,
+            "oc_mass": 3.036,
+            "bc_mass": 1.254,
+            "ss_pm25": 0.8250000000000001,
+            "so4_mass": 6.355272,
+            "pm25_total": 29.620272000000003
         },
         {
             "date": "2026-04-27",
             "aod_55": 0.28,
             "temperature_2m": 35.93,
-            "wind_speed_10m": 5.61
+            "wind_speed_10m": 5.61,
+            "dust_pm25": 15.400000000000002,
+            "oc_mass": 2.576,
+            "bc_mass": 1.064,
+            "ss_pm25": 0.7000000000000001,
+            "so4_mass": 5.392352,
+            "pm25_total": 25.132352
         },
         {
             "date": "2026-04-28",
             "aod_55": 0.44,
             "temperature_2m": 34.15,
-            "wind_speed_10m": 5.37
+            "wind_speed_10m": 5.37,
+            "dust_pm25": 24.2,
+            "oc_mass": 4.048,
+            "bc_mass": 1.672,
+            "ss_pm25": 1.1,
+            "so4_mass": 8.473696,
+            "pm25_total": 39.493696
         },
         {
             "date": "2026-04-29",
             "aod_55": 0.68,
             "temperature_2m": 34.84,
-            "wind_speed_10m": 4.56
+            "wind_speed_10m": 4.56,
+            "dust_pm25": 37.400000000000006,
+            "oc_mass": 6.256,
+            "bc_mass": 2.584,
+            "ss_pm25": 1.7000000000000002,
+            "so4_mass": 13.095712,
+            "pm25_total": 61.03571200000001
         }
     ]
 }
