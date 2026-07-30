@@ -215,15 +215,21 @@
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                 <h3>Panel 3: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
                 <p style="font-size: 0.9rem; color: var(--text-light);">
-                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier). 
-                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
+                    Calculated from collection diagnostics scaled to $\mu\text{g/m}^3$ ($10^9$ multiplier).
                 </p>
-                
                 <div class="formula-box">
                     $$PM_{2.5} = DUSMASS_{25} + OCSMASS + BCSMASS + SSSMASS_{25} + \left(SO4SMASS \times \frac{132.14}{96.06}\right)$$
                 </div>
-
                 <canvas id="pm25LineChart"></canvas>
+            </div>
+
+            <!-- Panel 4: PM1 - PM2.5 - PM10 Stacked Area Plot -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Panel 4: Particulate Matter Size Fractions ($PM_1$, $PM_{2.5}$, $PM_{10}$)</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light);">
+                    Stacked area plot illustrating sub-micron ($PM_1$), fine ($PM_{2.5}$), and coarse/total ($PM_{10}$) particulate fractions.
+                </p>
+                <canvas id="pmStackChart"></canvas>
             </div>
         </section>
 
@@ -315,6 +321,7 @@
 
                     const labels = history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
                     
+                    // Panel 1: AOD
                     const ctx1 = document.getElementById('merra2Chart').getContext('2d');
                     new Chart(ctx1, {
                         type: 'line',
@@ -339,6 +346,7 @@
                         }
                     });
 
+                    // Panel 2: Meteorology
                     const ctx2 = document.getElementById('metChart').getContext('2d');
                     new Chart(ctx2, {
                         type: 'line',
@@ -369,91 +377,79 @@
                         },
                         options: {
                             responsive: true,
-                            plugins: {
-                                tooltip: { mode: 'index', intersect: false }
-                            },
+                            plugins: { tooltip: { mode: 'index', intersect: false } },
                             scales: {
                                 x: { title: { display: true, text: 'Date' } },
-                                y: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'left',
-                                    title: { display: true, text: 'Temperature (°C)' }
-                                },
-                                y1: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'right',
-                                    title: { display: true, text: 'Wind Speed (m/s)' },
-                                    grid: { drawOnChartArea: false },
-                                    beginAtZero: true
-                                }
+                                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Temperature (°C)' } },
+                                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Wind Speed (m/s)' }, grid: { drawOnChartArea: false }, beginAtZero: true }
                             }
                         }
                     });
 
+                    // Panel 3: PM2.5 Components
                     const ctx3 = document.getElementById('pm25LineChart').getContext('2d');
                     new Chart(ctx3, {
                         type: 'line',
                         data: {
                             labels: labels,
                             datasets: [
+                                { label: 'Total PM2.5', data: history.map(item => Number((item.pm25_total || 0).toFixed(2))), borderColor: '#d32f2f', borderWidth: 3, fill: false, tension: 0.2 },
+                                { label: 'Dust (DUSMASS25)', data: history.map(item => Number((item.dust_pm25 || 0).toFixed(2))), borderColor: '#d4a373', borderWidth: 2, fill: false, tension: 0.2 },
+                                { label: 'Sulfate (SO4 Adjusted)', data: history.map(item => Number((item.so4_mass || 0).toFixed(2))), borderColor: '#457b9d', borderWidth: 2, fill: false, tension: 0.2 },
+                                { label: 'Organic Carbon', data: history.map(item => Number((item.oc_mass || 0).toFixed(2))), borderColor: '#e07a5f', borderWidth: 2, fill: false, tension: 0.2 },
+                                { label: 'Black Carbon', data: history.map(item => Number((item.bc_mass || 0).toFixed(2))), borderColor: '#212529', borderWidth: 2, fill: false, tension: 0.2 },
+                                { label: 'Sea Salt', data: history.map(item => Number((item.ss_pm25 || 0).toFixed(2))), borderColor: '#a8dadc', borderWidth: 2, fill: false, tension: 0.2 }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { tooltip: { mode: 'index', intersect: false } },
+                            scales: {
+                                x: { title: { display: true, text: 'Date' } },
+                                y: { title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
+                            }
+                        }
+                    });
+
+                    // Panel 4: PM1 - PM2.5 - PM10 Stacked Area Plot
+                    const ctx4 = document.getElementById('pmStackChart').getContext('2d');
+                    new Chart(ctx4, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
                                 {
-                                    label: 'Total PM2.5',
-                                    data: history.map(item => Number((item.pm25_total || 0).toFixed(2))),
-                                    borderColor: '#d32f2f',
-                                    backgroundColor: 'rgba(211, 47, 47, 0.05)',
-                                    borderWidth: 3,
-                                    fill: false,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'Dust (DUSMASS25)',
-                                    data: history.map(item => Number((item.dust_pm25 || 0).toFixed(2))),
-                                    borderColor: '#d4a373',
-                                    borderWidth: 2,
-                                    fill: false,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'Sulfate (SO4 Adjusted)',
-                                    data: history.map(item => Number((item.so4_mass || 0).toFixed(2))),
-                                    borderColor: '#457b9d',
-                                    borderWidth: 2,
-                                    fill: false,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'Organic Carbon (OCSMASS)',
-                                    data: history.map(item => Number((item.oc_mass || 0).toFixed(2))),
+                                    label: 'PM1',
+                                    data: history.map(item => Number((item.pm1 || 0).toFixed(2))),
                                     borderColor: '#e07a5f',
+                                    backgroundColor: 'rgba(224, 122, 95, 0.4)',
                                     borderWidth: 2,
-                                    fill: false,
+                                    fill: true,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Black Carbon (BCSMASS)',
-                                    data: history.map(item => Number((item.bc_mass || 0).toFixed(2))),
-                                    borderColor: '#212529',
+                                    label: 'PM2.5',
+                                    data: history.map(item => Number((item.pm25_total || 0).toFixed(2))),
+                                    borderColor: '#8b5a2b',
+                                    backgroundColor: 'rgba(139, 90, 43, 0.3)',
                                     borderWidth: 2,
-                                    fill: false,
+                                    fill: true,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Sea Salt (SSSMASS25)',
-                                    data: history.map(item => Number((item.ss_pm25 || 0).toFixed(2))),
-                                    borderColor: '#a8dadc',
+                                    label: 'PM10',
+                                    data: history.map(item => Number((item.pm10 || 0).toFixed(2))),
+                                    borderColor: '#457b9d',
+                                    backgroundColor: 'rgba(69, 123, 157, 0.2)',
                                     borderWidth: 2,
-                                    fill: false,
+                                    fill: true,
                                     tension: 0.2
                                 }
                             ]
                         },
                         options: {
                             responsive: true,
-                            plugins: {
-                                tooltip: { mode: 'index', intersect: false }
-                            },
+                            plugins: { tooltip: { mode: 'index', intersect: false } },
                             scales: {
                                 x: { stacked: false, title: { display: true, text: 'Date' } },
                                 y: { stacked: false, title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
@@ -540,32 +536,17 @@
                         },
                         options: {
                             responsive: true,
-                            plugins: {
-                                tooltip: { mode: 'index', intersect: false }
-                            },
+                            plugins: { tooltip: { mode: 'index', intersect: false } },
                             scales: {
                                 x: { title: { display: true, text: 'Date' } },
-                                y: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'left',
-                                    title: { display: true, text: 'AQI' },
-                                    beginAtZero: true
-                                },
-                                y1: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'right',
-                                    title: { display: true, text: 'PM2.5 (µg/m³)' },
-                                    grid: { drawOnChartArea: false },
-                                    beginAtZero: true
-                                }
+                                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'AQI' }, beginAtZero: true },
+                                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'PM2.5 (µg/m³)' }, grid: { drawOnChartArea: false }, beginAtZero: true }
                             }
                         }
                     });
                 })
                 .catch(error => {
-                    container.innerHTML = `<p style="color: #666;">WAQI data file loading... Run <code>fetch_waqi.py</code> to initialize <code>data/jodhpur_waqi.json</code>.</p>`;
+                    container.innerHTML = `<p style="color: #666;">WAQI data file loading...</p>`;
                     console.error("Error loading WAQI data:", error);
                 });
         }
