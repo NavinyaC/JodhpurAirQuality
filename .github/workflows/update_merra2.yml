@@ -1,11 +1,10 @@
-name: Update MERRA-2 Data
+name: Update MERRA-2 Data Weekly
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '0 0 * * 0' # Runs once every week on Sundays at 00:00 UTC
   workflow_dispatch: 
 
-# Explicitly grant write permissions to allow pushing back to the repo
 permissions:
   contents: write
 
@@ -26,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: pip install requests
 
-      - name: Run NASA POWER Script
+      - name: Run Incremental Backfill Script
         run: python fetch_merra2.py
 
       - name: Commit and Push Changes
@@ -34,5 +33,5 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add data/jodhpur_merra2.json
-          git commit -m "Automated MERRA-2 data update" || exit 0
+          git commit -m "Weekly automated 2026 MERRA-2 data backfill/update" || exit 0
           git push
