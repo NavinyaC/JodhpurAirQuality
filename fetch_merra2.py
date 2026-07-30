@@ -14,7 +14,7 @@ def main():
     min_str = start_date.strftime('%Y%m%d')
     max_str = end_date.strftime('%Y%m%d')
 
-    url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,WS10M,AOD_55,DUSMASS25,OCSMASS,BCSMASS,SSSMASS25,SO4SMASS&community=AG&longitude={LON}&latitude={LAT}&start={min_str}&end={max_str}&format=JSON"
+    url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,WS10M,RHOA,AOD_55,DUSMASS25,OCSMASS,BCSMASS,SSSMASS25,SO4SMASS&community=AG&longitude={LON}&latitude={LAT}&start={min_str}&end={max_str}&format=JSON"
     
     print(f"Fetching NASA POWER MERRA-2 data for Jodhpur ({min_str} to {max_str})...")
     response = requests.get(url)
@@ -27,12 +27,13 @@ def main():
     
     t2m = parameters.get('T2M', {})
     ws10m = parameters.get('WS10M', {})
+    rhoa = parameters.get('RHOA', {})
     aod55 = parameters.get('AOD_55', {})
-    dust = parameters.get('DUSMASS25', {})
-    oc = parameters.get('OCSMASS', {})
-    bc = parameters.get('BCSMASS', {})
-    ss = parameters.get('SSSMASS25', {})
-    so4 = parameters.get('SO4SMASS', {})
+    dust_tot = parameters.get('DUSMASS25', {})
+    oc_tot = parameters.get('OCSMASS', {})
+    bc_tot = parameters.get('BCSMASS', {})
+    ss_tot = parameters.get('SSSMASS25', {})
+    so4_tot = parameters.get('SO4SMASS', {})
 
     curr = start_date
     history = []
@@ -41,40 +42,60 @@ def main():
         date_str = curr.strftime('%Y%m%d')
         formatted_date = curr.strftime('%Y-%m-%d')
         
-        d_val = dust.get(date_str, -999.0)
-        oc_val = oc.get(date_str, -999.0)
-        bc_val = bc.get(date_str, -999.0)
-        ss_val = ss.get(date_str, -999.0)
-        so4_val = so4.get(date_str, -999.0)
+        d_val = dust_tot.get(date_str, -999.0)
+        oc_val = oc_tot.get(date_str, -999.0)
+        bc_val = bc_tot.get(date_str, -999.0)
+        ss_val = ss_tot.get(date_str, -999.0)
+        so4_val = so4_tot.get(date_str, -999.0)
         t_val = t2m.get(date_str, -999.0)
         ws_val = ws10m.get(date_str, -999.0)
+        rho_val = rhoa.get(date_str, -999.0)
         aod_val = aod55.get(date_str, -999.0)
 
         if d_val != -999.0:
-            d_ug = d_val * 1e9
-            oc_ug = oc_val * 1e9 if oc_val != -999.0 else 0.0
-            bc_ug = bc_val * 1e9 if bc_val != -999.0 else 0.0
-            ss_ug = ss_val * 1e9 if ss_val != -999.0 else 0.0
-            so4_ug = so4_val * 1e9 * (132.14 / 96.06) if so4_val != -999.0 else 0.0
+            # Air density (kg/m^3), default to 1.2 if missing
+            AIRDENS = rho_val if rho_val != -999.0 else 1.2
             
-            # Component estimations
-            pm25_total = d_ug + oc_ug + bc_ug + ss_ug + so4_ug
-            # PM1: sub-micron fraction (fine carbon, sulfate, fine sea salt, ~30% fine dust)
-            pm1 = (0.3 * d_ug) + oc_ug + bc_ug + (0.5 * ss_ug) + so4_ug
-            # PM10: includes coarse dust and larger sea-salt fractions
-            pm10 = pm25_total + (1.8 * d_ug)
+            # Map concentrations to GOCART species variables (mixing ratio equivalent)
+            SO4 = (so4_val if so4_val != -999.0 else 0.0) / AIRDENS
+            BCPHOBIC = (bc_val if bc_val != -999.0 else 0.0) * 0.5 / AIRDENS
+            BCPHILIC = (bc_val if bc_val != -999.0 else 0.0) * 0.5 / AIRDENS
+            OCPHOBIC = (oc_val if oc_val != -999.0 else 0.0) * 0.5 / AIRDENS
+            OCPHILIC = (oc_val if oc_val != -999.0 else 0.0) * 0.5 / AIRDENS
             
+            # Dust bin distribution
+            d_tot = (d_val if d_val != -999.0 else 0.0) / AIRDENS
+            DU001 = d_tot * 0.20
+            DU002 = d_tot * 0.30
+            DU003 = d_tot * 0.30
+            DU004 = d_tot * 0.20
+            
+            # Sea salt bin distribution
+            s_tot = (ss_val if ss_val != -999.0 else 0.0) / AIRDENS
+            SS001 = s_tot * 0.25
+            SS002 = s_tot * 0.25
+            SS003 = s_tot * 0.25
+            SS004 = s_tot * 0.25
+            
+            # Exact formula calculations for PM1 and PM10
+            PM1_calc = (1.375 * SO4 + BCPHOBIC + BCPHILIC + OCPHOBIC + OCPHILIC + 0.7 * DU001 + SS001 + SS002) * AIRDENS * 1e9
+            PM10_calc = (1.375 * SO4 + BCPHOBIC + BCPHILIC + OCPHOBIC + OCPHILIC + DU001 + DU002 + DU003 + 0.74 * DU004 + SS001 + SS002 + SS003 + SS004) * AIRDENS * 1e9
+            
+            # Total PM2.5 calculation
+            pm25_total = (d_val if d_val != -999.0 else 0.0) + (oc_val if oc_val != -999.0 else 0.0) + (bc_val if bc_val != -999.0 else 0.0) + (ss_val if ss_val != -999.0 else 0.0) + (so4_val if so4_val != -999.0 else 0.0) * 1.375
+            pm25_ug = pm25_total * 1e9
+
             history.append({
                 "date": formatted_date,
                 "aod_55": round(aod_val, 2) if aod_val != -999.0 else 0.0,
-                "pm1": round(pm1, 2),
-                "pm25_total": round(pm25_total, 2),
-                "pm10": round(pm10, 2),
-                "dust_pm25": round(d_ug, 2),
-                "oc_mass": round(oc_ug, 2),
-                "bc_mass": round(bc_ug, 2),
-                "ss_pm25": round(ss_ug, 2),
-                "so4_mass": round(so4_ug, 2),
+                "pm1": round(PM1_calc, 2),
+                "pm25_total": round(pm25_ug, 2),
+                "pm10": round(PM10_calc, 2),
+                "dust_pm25": round((d_val if d_val != -999.0 else 0.0) * 1e9, 2),
+                "oc_mass": round((oc_val if oc_val != -999.0 else 0.0) * 1e9, 2),
+                "bc_mass": round((bc_val if bc_val != -999.0 else 0.0) * 1e9, 2),
+                "ss_pm25": round((ss_val if ss_val != -999.0 else 0.0) * 1e9, 2),
+                "so4_mass": round((so4_val if so4_val != -999.0 else 0.0) * 1e9 * 1.375, 2),
                 "temperature_2m": round(t_val, 2) if t_val != -999.0 else 0.0,
                 "wind_speed_10m": round(ws_val, 2) if ws_val != -999.0 else 0.0
             })
@@ -93,7 +114,7 @@ def main():
     os.makedirs('data', exist_ok=True)
     with open(DATA_FILE, 'w') as f:
         json.dump(output, f, indent=4)
-    print(f"Successfully generated Jodhpur MERRA-2 dataset with {len(history)} records.")
+    print(f"Successfully generated Jodhpur MERRA-2 dataset with {len(history)} records using exact formula variables.")
 
 if __name__ == "__main__":
     main()
