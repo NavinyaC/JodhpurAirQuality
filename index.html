@@ -151,6 +151,7 @@
             <ul class="nav-links">
                 <li><button onclick="switchTab('about', event)" class="active">About</button></li>
                 <li><button onclick="switchTab('nasapower', event)">NASA POWER</button></li>
+                <li><button onclick="switchTab('waqi', event)">Ground Stations (WAQI)</button></li>
             </ul>
         </nav>
     </header>
@@ -198,12 +199,27 @@
                     For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
                 </p>
                 
-                <!-- Display Formula rendered via MathJax -->
                 <div class="formula-box">
                     $$PM_{2.5} = DUSMASS_{25} + OCSMASS + BCSMASS + SSSMASS_{25} + \left(SO4SMASS \times \frac{132.14}{96.06}\right)$$
                 </div>
 
                 <canvas id="pm25LineChart"></canvas>
+            </div>
+        </section>
+
+        <!-- WAQI Ground Stations Section -->
+        <section id="waqi" class="tab-content">
+            <h2>Ground Stations (WAQI / CPCB Network)</h2>
+            <p>Real-time ground-level air quality observations and air quality index metrics from official monitoring stations in Jodhpur.</p>
+            
+            <div id="waqi-data-container">
+                <p><em>[Data visualization loading...]</em></p>
+            </div>
+
+            <!-- WAQI Panel: Historical AQI & PM Trend -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Ground Station Air Quality Index & Particulate Trends</h3>
+                <canvas id="waqiChart"></canvas>
             </div>
         </section>
 
@@ -213,9 +229,10 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Scripting for Tabs and Three-Panel Charts -->
+    <!-- Scripting for Tabs and Charts -->
     <script>
         let chartsInitialized = false;
+        let waqiInitialized = false;
 
         function switchTab(tabId, event) {
             const sections = document.querySelectorAll('.tab-content');
@@ -229,6 +246,9 @@
 
             if (tabId === 'nasapower' && !chartsInitialized) {
                 loadMerra2Data();
+            }
+            if (tabId === 'waqi' && !waqiInitialized) {
+                loadWaqiData();
             }
         }
 
@@ -275,7 +295,6 @@
 
                     const labels = history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
                     
-                    // Panel 1: AOD Line Chart
                     const ctx1 = document.getElementById('merra2Chart').getContext('2d');
                     new Chart(ctx1, {
                         type: 'line',
@@ -300,7 +319,6 @@
                         }
                     });
 
-                    // Panel 2: Wind Speed and Temperature Dual-Axis Chart
                     const ctx2 = document.getElementById('metChart').getContext('2d');
                     new Chart(ctx2, {
                         type: 'line',
@@ -354,7 +372,6 @@
                         }
                     });
 
-                    // Panel 3: Multi-Line Concentration Chart for PM2.5 and Components
                     const ctx3 = document.getElementById('pm25LineChart').getContext('2d');
                     new Chart(ctx3, {
                         type: 'line',
@@ -427,6 +444,109 @@
                 .catch(error => {
                     container.innerHTML = `<p style="color: #666;">Data file loading error.</p>`;
                     console.error("Error loading MERRA-2 data:", error);
+                });
+        }
+
+        function loadWaqiData() {
+            const container = document.getElementById('waqi-data-container');
+            
+            fetch('data/jodhpur_waqi.json?t=' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) throw new Error("WAQI data file not found");
+                    return response.json();
+                })
+                .then(data => {
+                    waqiInitialized = true;
+                    const latest = data.latest || {};
+                    const history = data.history || [];
+                    const formattedDate = latest.date ? latest.date : 'N/A';
+
+                    container.innerHTML = `
+                        <div style="background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 1rem;">
+                            <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">${data.location || 'Jodhpur, India'}</h3>
+                            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Air Quality Index (AQI)</span>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${latest.aqi || 0}</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">PM<sub>2.5</sub></span>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${latest.pm25 || 0} µg/m³</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">PM<sub>10</sub></span>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #457b9d;">${latest.pm10 || 0} µg/m³</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Temperature</span>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${latest.temperature || 0} °C</div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
+                                Last Updated: <strong>${formattedDate}</strong>
+                            </p>
+                        </div>
+                    `;
+
+                    const labels = history.map(item => item.date.substring(5, 16));
+                    
+                    const ctxWaqi = document.getElementById('waqiChart').getContext('2d');
+                    new Chart(ctxWaqi, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'AQI',
+                                    data: history.map(item => item.aqi || 0),
+                                    borderColor: '#d32f2f',
+                                    backgroundColor: 'rgba(211, 47, 47, 0.05)',
+                                    borderWidth: 2,
+                                    yAxisID: 'y',
+                                    fill: false,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'PM2.5 (µg/m³)',
+                                    data: history.map(item => item.pm25 || 0),
+                                    borderColor: '#8b5a2b',
+                                    backgroundColor: 'rgba(139, 90, 43, 0.05)',
+                                    borderWidth: 2,
+                                    yAxisID: 'y1',
+                                    fill: false,
+                                    tension: 0.2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                tooltip: { mode: 'index', intersect: false }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: 'Timestamp' } },
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: { display: true, text: 'AQI' },
+                                    beginAtZero: true
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    title: { display: true, text: 'PM2.5 (µg/m³)' },
+                                    grid: { drawOnChartArea: false },
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    container.innerHTML = `<p style="color: #666;">WAQI data file loading... Run <code>fetch_waqi.py</code> to initialize <code>data/jodhpur_waqi.json</code>.</p>`;
+                    console.error("Error loading WAQI data:", error);
                 });
         }
     </script>
