@@ -5,15 +5,21 @@ on:
     - cron: '0 0 * * *' 
   workflow_dispatch: 
 
+# Explicitly grant write permissions to allow pushing back to the repo
+permissions:
+  contents: write
+
 jobs:
   fetch-merra2:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -25,8 +31,8 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
           git add data/jodhpur_merra2.json
           git commit -m "Automated MERRA-2 data update" || exit 0
           git push
