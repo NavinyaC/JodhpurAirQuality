@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jodhpur Air Quality Portal</title>
+    <!-- Chart.js CDN for interactive data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* CSS Variables for Theme Colors */
         :root {
@@ -172,7 +174,6 @@
         <section id="cpcb">
             <h2>CPCB (Central Pollution Control Board)</h2>
             <p>Ground-level monitoring data for Particulate Matter (PM2.5, PM10) and trace gases from official local stations.</p>
-            <!-- Placeholder for future charts/widgets -->
             <div id="cpcb-data-container">
                 <p><em>[Data visualization loading...]</em></p>
             </div>
@@ -182,9 +183,15 @@
         <section id="merra2">
             <h2>NASA MERRA-2</h2>
             <p>Atmospheric reanalysis data providing insights into regional aerosol distribution and meteorological parameters.</p>
-            <!-- Placeholder for future charts/widgets -->
+            
+            <!-- Target container for text stats summaries -->
             <div id="merra2-data-container">
                 <p><em>[Data visualization loading...]</em></p>
+            </div>
+            
+            <!-- Wrapper holding the trend graph canvas element -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <canvas id="merra2Chart"></canvas>
             </div>
         </section>
 
@@ -192,7 +199,6 @@
         <section id="modis">
             <h2>MODIS</h2>
             <p>Satellite-derived Aerosol Optical Depth (AOD) and related atmospheric products from Terra and Aqua satellites.</p>
-            <!-- Placeholder for future charts/widgets -->
             <div id="modis-data-container">
                 <p><em>[Data visualization loading...]</em></p>
             </div>
@@ -202,7 +208,6 @@
         <section id="ceres">
             <h2>CERES</h2>
             <p>Clouds and the Earth's Radiant Energy System data detailing solar radiation and climate metrics.</p>
-            <!-- Placeholder for future charts/widgets -->
             <div id="ceres-data-container">
                 <p><em>[Data visualization loading...]</em></p>
             </div>
@@ -215,5 +220,88 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
+    <!-- Async Data Pipeline and Chart Initialization -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const merra2Container = document.getElementById('merra2-data-container');
+            
+            // Asynchronously fetch the data payload updated by GitHub Actions workflow execution
+            fetch('data/jodhpur_merra2.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("MERRA-2 data snapshot array file not found");
+                    return response.json();
+                })
+                .then(data => {
+                    const latest = data.latest;
+                    const formattedDate = new Date(latest.date).toLocaleDateString();
+
+                    // Inject processed statistical highlights into the layout DOM structure
+                    merra2Container.innerHTML = `
+                        <div style="background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 1rem;">
+                            <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">${data.location}</h3>
+                            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Latest Aerosol Optical Depth (550nm)</span>
+                                    <div style="font-size: 2.5rem; font-weight: bold; color: ${latest.aod_55 > 0.5 ? '#d32f2f' : '#8b5a2b'};">${latest.aod_55.toFixed(3)}</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Temperature</span>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${latest.temperature_2m.toFixed(1)} °C</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Wind Speed</span>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${latest.wind_speed_10m.toFixed(1)} m/s</div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
+                                Most recent reanalysis snapshot: <strong>${formattedDate}</strong><br>
+                                Automated fetch run: ${new Date(data.last_automated_run).toLocaleString()}
+                            </p>
+                        </div>
+                    `;
+
+                    // Generate discrete axis indices from historical timeline timeline objects
+                    const labels = data.history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
+                    const aodValues = data.history.map(item => item.aod_55);
+
+                    // Build line chart instance linked directly inside the canvas layout context
+                    const ctx = document.getElementById('merra2Chart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Aerosol Optical Depth (550 nm)',
+                                data: aodValues,
+                                borderColor: '#8b5a2b',
+                                backgroundColor: 'rgba(139, 90, 43, 0.1)',
+                                borderWidth: 2.5,
+                                tension: 0.2,
+                                fill: true,
+                                pointRadius: 3,
+                                pointHoverRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { display: true, position: 'top' }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: 'Date' } },
+                                y: { 
+                                    title: { display: true, text: 'AOD Value' },
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    merra2Container.innerHTML = `<p style="color: #666;">Waiting for the first automated GitHub Action run to generate analytical graphs...</p>`;
+                    console.error(error);
+                });
+        });
+    </script>
 </body>
 </html>
