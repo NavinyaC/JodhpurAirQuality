@@ -488,7 +488,7 @@
                         </div>
                     `;
 
-                    const labels = history.map(item => item.date.substring(5, 16));
+                    const labels = history.map(item => item.date);
                     
                     const ctxWaqi = document.getElementById('waqiChart').getContext('2d');
                     new Chart(ctxWaqi, {
@@ -524,7 +524,7 @@
                                 tooltip: { mode: 'index', intersect: false }
                             },
                             scales: {
-                                x: { title: { display: true, text: 'Timestamp' } },
+                                x: { title: { display: true, text: 'Date' } },
                                 y: {
                                     type: 'linear',
                                     display: true,
