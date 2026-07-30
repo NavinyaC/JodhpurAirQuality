@@ -82,10 +82,10 @@ def main():
 
             history.append({
                 "date": formatted_date,
-                "aod_55": round(aod_val, 2) if aod_val != -999.0 else 0.0,
                 "pm1": round(PM1_calc, 2),
                 "pm25_total": round(pm25_ug, 2),
                 "pm10": round(PM10_calc, 2),
+                "aod_55": round(aod_val, 2) if aod_val != -999.0 else 0.0,
                 "dust_pm25": round((d_val if d_val != -999.0 else 0.0) * 1e9, 2),
                 "oc_mass": round((oc_val if oc_val != -999.0 else 0.0) * 1e9, 2),
                 "bc_mass": round((bc_val if bc_val != -999.0 else 0.0) * 1e9, 2),
