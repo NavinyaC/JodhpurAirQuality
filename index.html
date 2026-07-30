@@ -192,13 +192,19 @@
             
             <!-- Panel 1: AOD Trend -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 1: Aerosol Optical Depth ($550\text{ nm}$) Trend</h3>
+                <h3>Panel 1: Aerosol Optical Depth ($550\text{ nm}$)</h3>
                 <canvas id="merra2Chart"></canvas>
             </div>
 
-            <!-- Panel 2: Multi-Line Concentration Breakdown -->
+            <!-- Panel 2: Wind Speed and Temperature -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 2: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
+                <h3>Panel 2: Meteorological Parameters (Wind Speed & Temperature)</h3>
+                <canvas id="metChart"></canvas>
+            </div>
+
+            <!-- Panel 3: PM2.5 Components and Total -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Panel 3: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
                 <p style="font-size: 0.9rem; color: var(--text-light);">
                     Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier). 
                     For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
@@ -237,7 +243,7 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Scripting for Tabs and Dual-Panel Charts -->
+    <!-- Scripting for Tabs and Three-Panel Charts -->
     <script>
         let chartsInitialized = false;
 
@@ -324,9 +330,63 @@
                         }
                     });
 
-                    // Panel 2: Multi-Line Concentration Chart (Unstacked, with Total PM2.5 line)
-                    const ctx2 = document.getElementById('pm25LineChart').getContext('2d');
+                    // Panel 2: Wind Speed and Temperature Dual-Axis Chart
+                    const ctx2 = document.getElementById('metChart').getContext('2d');
                     new Chart(ctx2, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Temperature (°C)',
+                                    data: history.map(item => item.temperature_2m || 0),
+                                    borderColor: '#e07a5f',
+                                    backgroundColor: 'rgba(224, 122, 95, 0.05)',
+                                    borderWidth: 2,
+                                    yAxisID: 'y',
+                                    fill: false,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Wind Speed (m/s)',
+                                    data: history.map(item => item.wind_speed_10m || 0),
+                                    borderColor: '#457b9d',
+                                    backgroundColor: 'rgba(69, 123, 157, 0.05)',
+                                    borderWidth: 2,
+                                    yAxisID: 'y1',
+                                    fill: false,
+                                    tension: 0.2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                tooltip: { mode: 'index', intersect: false }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: 'Date' } },
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: { display: true, text: 'Temperature (°C)' }
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    title: { display: true, text: 'Wind Speed (m/s)' },
+                                    grid: { drawOnChartArea: false },
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                    // Panel 3: Multi-Line Concentration Chart for PM2.5 and Components
+                    const ctx3 = document.getElementById('pm25LineChart').getContext('2d');
+                    new Chart(ctx3, {
                         type: 'line',
                         data: {
                             labels: labels,
