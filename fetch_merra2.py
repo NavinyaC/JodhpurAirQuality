@@ -53,24 +53,20 @@ def main():
         aod_val = aod55.get(date_str, -999.0)
 
         if d_val != -999.0:
-            # Air density (kg/m^3), default to 1.2 if missing
             AIRDENS = rho_val if rho_val != -999.0 else 1.2
             
-            # Map concentrations to GOCART species variables (mixing ratio equivalent)
             SO4 = (so4_val if so4_val != -999.0 else 0.0) / AIRDENS
             BCPHOBIC = (bc_val if bc_val != -999.0 else 0.0) * 0.5 / AIRDENS
             BCPHILIC = (bc_val if bc_val != -999.0 else 0.0) * 0.5 / AIRDENS
             OCPHOBIC = (oc_val if oc_val != -999.0 else 0.0) * 0.5 / AIRDENS
             OCPHILIC = (oc_val if oc_val != -999.0 else 0.0) * 0.5 / AIRDENS
             
-            # Dust bin distribution
             d_tot = (d_val if d_val != -999.0 else 0.0) / AIRDENS
             DU001 = d_tot * 0.20
             DU002 = d_tot * 0.30
             DU003 = d_tot * 0.30
             DU004 = d_tot * 0.20
             
-            # Sea salt bin distribution
             s_tot = (ss_val if ss_val != -999.0 else 0.0) / AIRDENS
             SS001 = s_tot * 0.25
             SS002 = s_tot * 0.25
@@ -81,7 +77,6 @@ def main():
             PM1_calc = (1.375 * SO4 + BCPHOBIC + BCPHILIC + OCPHOBIC + OCPHILIC + 0.7 * DU001 + SS001 + SS002) * AIRDENS * 1e9
             PM10_calc = (1.375 * SO4 + BCPHOBIC + BCPHILIC + OCPHOBIC + OCPHILIC + DU001 + DU002 + DU003 + 0.74 * DU004 + SS001 + SS002 + SS003 + SS004) * AIRDENS * 1e9
             
-            # Total PM2.5 calculation
             pm25_total = (d_val if d_val != -999.0 else 0.0) + (oc_val if oc_val != -999.0 else 0.0) + (bc_val if bc_val != -999.0 else 0.0) + (ss_val if ss_val != -999.0 else 0.0) + (so4_val if so4_val != -999.0 else 0.0) * 1.375
             pm25_ug = pm25_total * 1e9
 
@@ -114,7 +109,7 @@ def main():
     os.makedirs('data', exist_ok=True)
     with open(DATA_FILE, 'w') as f:
         json.dump(output, f, indent=4)
-    print(f"Successfully generated Jodhpur MERRA-2 dataset with {len(history)} records using exact formula variables.")
+    print(f"Successfully generated Jodhpur MERRA-2 dataset with {len(history)} records including PM1 and PM10.")
 
 if __name__ == "__main__":
     main()
