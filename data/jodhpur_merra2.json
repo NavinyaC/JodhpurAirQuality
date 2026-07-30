@@ -1,0 +1,726 @@
+{
+    "last_automated_run": "2026-07-30T11:34:54.146498",
+    "location": "Jodhpur (NASA POWER Reanalysis Grid)",
+    "latest": {
+        "date": "2026-04-29",
+        "aod_55": 0.68,
+        "temperature_2m": 34.84,
+        "wind_speed_10m": 4.56
+    },
+    "history": [
+        {
+            "date": "2026-01-01",
+            "aod_55": 0.65,
+            "temperature_2m": 17.98,
+            "wind_speed_10m": 2.63
+        },
+        {
+            "date": "2026-01-02",
+            "aod_55": 0.28,
+            "temperature_2m": 14.62,
+            "wind_speed_10m": 3.33
+        },
+        {
+            "date": "2026-01-03",
+            "aod_55": 0.25,
+            "temperature_2m": 13.63,
+            "wind_speed_10m": 2.72
+        },
+        {
+            "date": "2026-01-04",
+            "aod_55": 0.18,
+            "temperature_2m": 13.86,
+            "wind_speed_10m": 2.92
+        },
+        {
+            "date": "2026-01-05",
+            "aod_55": 0.21,
+            "temperature_2m": 14.72,
+            "wind_speed_10m": 3.01
+        },
+        {
+            "date": "2026-01-06",
+            "aod_55": 0.24,
+            "temperature_2m": 14.76,
+            "wind_speed_10m": 3.17
+        },
+        {
+            "date": "2026-01-07",
+            "aod_55": 0.34,
+            "temperature_2m": 14.26,
+            "wind_speed_10m": 4.31
+        },
+        {
+            "date": "2026-01-08",
+            "aod_55": 0.5,
+            "temperature_2m": 14.29,
+            "wind_speed_10m": 3.4
+        },
+        {
+            "date": "2026-01-09",
+            "aod_55": 0.49,
+            "temperature_2m": 14.35,
+            "wind_speed_10m": 2.47
+        },
+        {
+            "date": "2026-01-10",
+            "aod_55": 0.51,
+            "temperature_2m": 12.99,
+            "wind_speed_10m": 3.58
+        },
+        {
+            "date": "2026-01-11",
+            "aod_55": 0.45,
+            "temperature_2m": 12.87,
+            "wind_speed_10m": 3.7
+        },
+        {
+            "date": "2026-01-12",
+            "aod_55": 0.39,
+            "temperature_2m": 14.62,
+            "wind_speed_10m": 2.57
+        },
+        {
+            "date": "2026-01-13",
+            "aod_55": 0.38,
+            "temperature_2m": 16.32,
+            "wind_speed_10m": 2.16
+        },
+        {
+            "date": "2026-01-14",
+            "aod_55": 0.2,
+            "temperature_2m": 15.44,
+            "wind_speed_10m": 2.2
+        },
+        {
+            "date": "2026-01-15",
+            "aod_55": 0.13,
+            "temperature_2m": 16.75,
+            "wind_speed_10m": 2.33
+        },
+        {
+            "date": "2026-01-16",
+            "aod_55": 0.13,
+            "temperature_2m": 17.53,
+            "wind_speed_10m": 2.72
+        },
+        {
+            "date": "2026-01-17",
+            "aod_55": 0.26,
+            "temperature_2m": 18.25,
+            "wind_speed_10m": 2.24
+        },
+        {
+            "date": "2026-01-18",
+            "aod_55": 0.32,
+            "temperature_2m": 18.51,
+            "wind_speed_10m": 2.01
+        },
+        {
+            "date": "2026-01-19",
+            "aod_55": 0.31,
+            "temperature_2m": 17.93,
+            "wind_speed_10m": 2.04
+        },
+        {
+            "date": "2026-01-20",
+            "aod_55": 0.27,
+            "temperature_2m": 16.73,
+            "wind_speed_10m": 2.46
+        },
+        {
+            "date": "2026-01-21",
+            "aod_55": 0.39,
+            "temperature_2m": 18.42,
+            "wind_speed_10m": 2.47
+        },
+        {
+            "date": "2026-01-22",
+            "aod_55": 1.01,
+            "temperature_2m": 20.02,
+            "wind_speed_10m": 4.15
+        },
+        {
+            "date": "2026-01-23",
+            "aod_55": 0.41,
+            "temperature_2m": 13.84,
+            "wind_speed_10m": 4.31
+        },
+        {
+            "date": "2026-01-24",
+            "aod_55": 0.12,
+            "temperature_2m": 11.03,
+            "wind_speed_10m": 4.21
+        },
+        {
+            "date": "2026-01-25",
+            "aod_55": 0.26,
+            "temperature_2m": 11.29,
+            "wind_speed_10m": 3.65
+        },
+        {
+            "date": "2026-01-26",
+            "aod_55": 0.61,
+            "temperature_2m": 14.67,
+            "wind_speed_10m": 2.92
+        },
+        {
+            "date": "2026-01-27",
+            "aod_55": 0.49,
+            "temperature_2m": 16.72,
+            "wind_speed_10m": 3.98
+        },
+        {
+            "date": "2026-01-28",
+            "aod_55": 0.25,
+            "temperature_2m": 14.55,
+            "wind_speed_10m": 3.13
+        },
+        {
+            "date": "2026-01-29",
+            "aod_55": 0.37,
+            "temperature_2m": 15.33,
+            "wind_speed_10m": 3.23
+        },
+        {
+            "date": "2026-01-30",
+            "aod_55": 0.48,
+            "temperature_2m": 17.65,
+            "wind_speed_10m": 2.68
+        },
+        {
+            "date": "2026-01-31",
+            "aod_55": 0.77,
+            "temperature_2m": 20.79,
+            "wind_speed_10m": 2.54
+        },
+        {
+            "date": "2026-02-01",
+            "aod_55": 0.58,
+            "temperature_2m": 19.54,
+            "wind_speed_10m": 2.79
+        },
+        {
+            "date": "2026-02-02",
+            "aod_55": 0.46,
+            "temperature_2m": 18.05,
+            "wind_speed_10m": 3.39
+        },
+        {
+            "date": "2026-02-03",
+            "aod_55": 0.32,
+            "temperature_2m": 18.2,
+            "wind_speed_10m": 3.22
+        },
+        {
+            "date": "2026-02-04",
+            "aod_55": 0.3,
+            "temperature_2m": 18.68,
+            "wind_speed_10m": 3.76
+        },
+        {
+            "date": "2026-02-05",
+            "aod_55": 0.33,
+            "temperature_2m": 18.51,
+            "wind_speed_10m": 2.95
+        },
+        {
+            "date": "2026-02-06",
+            "aod_55": 0.35,
+            "temperature_2m": 19.96,
+            "wind_speed_10m": 2.56
+        },
+        {
+            "date": "2026-02-07",
+            "aod_55": 0.27,
+            "temperature_2m": 20.56,
+            "wind_speed_10m": 2.42
+        },
+        {
+            "date": "2026-02-08",
+            "aod_55": 0.18,
+            "temperature_2m": 19.96,
+            "wind_speed_10m": 2.36
+        },
+        {
+            "date": "2026-02-09",
+            "aod_55": 0.26,
+            "temperature_2m": 20.7,
+            "wind_speed_10m": 2.63
+        },
+        {
+            "date": "2026-02-10",
+            "aod_55": 0.3,
+            "temperature_2m": 21.36,
+            "wind_speed_10m": 2.41
+        },
+        {
+            "date": "2026-02-11",
+            "aod_55": 0.28,
+            "temperature_2m": 21.59,
+            "wind_speed_10m": 3.19
+        },
+        {
+            "date": "2026-02-12",
+            "aod_55": 0.36,
+            "temperature_2m": 20.83,
+            "wind_speed_10m": 3.66
+        },
+        {
+            "date": "2026-02-13",
+            "aod_55": 0.27,
+            "temperature_2m": 20.74,
+            "wind_speed_10m": 2.7
+        },
+        {
+            "date": "2026-02-14",
+            "aod_55": 0.19,
+            "temperature_2m": 21.21,
+            "wind_speed_10m": 2.59
+        },
+        {
+            "date": "2026-02-15",
+            "aod_55": 0.13,
+            "temperature_2m": 23.08,
+            "wind_speed_10m": 2.13
+        },
+        {
+            "date": "2026-02-16",
+            "aod_55": 0.21,
+            "temperature_2m": 22.77,
+            "wind_speed_10m": 3.09
+        },
+        {
+            "date": "2026-02-17",
+            "aod_55": 0.82,
+            "temperature_2m": 23.28,
+            "wind_speed_10m": 3.2
+        },
+        {
+            "date": "2026-02-18",
+            "aod_55": 1.23,
+            "temperature_2m": 22.56,
+            "wind_speed_10m": 2.9
+        },
+        {
+            "date": "2026-02-19",
+            "aod_55": 0.82,
+            "temperature_2m": 21.3,
+            "wind_speed_10m": 3.06
+        },
+        {
+            "date": "2026-02-20",
+            "aod_55": 0.59,
+            "temperature_2m": 22.6,
+            "wind_speed_10m": 3.63
+        },
+        {
+            "date": "2026-02-21",
+            "aod_55": 0.41,
+            "temperature_2m": 23.05,
+            "wind_speed_10m": 2.38
+        },
+        {
+            "date": "2026-02-22",
+            "aod_55": 0.38,
+            "temperature_2m": 23.57,
+            "wind_speed_10m": 3.08
+        },
+        {
+            "date": "2026-02-23",
+            "aod_55": 0.24,
+            "temperature_2m": 24.3,
+            "wind_speed_10m": 2.59
+        },
+        {
+            "date": "2026-02-24",
+            "aod_55": 0.18,
+            "temperature_2m": 25.44,
+            "wind_speed_10m": 1.66
+        },
+        {
+            "date": "2026-02-25",
+            "aod_55": 0.21,
+            "temperature_2m": 26.01,
+            "wind_speed_10m": 1.66
+        },
+        {
+            "date": "2026-02-26",
+            "aod_55": 0.25,
+            "temperature_2m": 25.62,
+            "wind_speed_10m": 2.3
+        },
+        {
+            "date": "2026-02-27",
+            "aod_55": 0.28,
+            "temperature_2m": 25.56,
+            "wind_speed_10m": 2.93
+        },
+        {
+            "date": "2026-02-28",
+            "aod_55": 0.3,
+            "temperature_2m": 24.76,
+            "wind_speed_10m": 2.65
+        },
+        {
+            "date": "2026-03-01",
+            "aod_55": 0.08,
+            "temperature_2m": 26.06,
+            "wind_speed_10m": 1.96
+        },
+        {
+            "date": "2026-03-02",
+            "aod_55": 0.02,
+            "temperature_2m": 26.83,
+            "wind_speed_10m": 1.79
+        },
+        {
+            "date": "2026-03-03",
+            "aod_55": 0.04,
+            "temperature_2m": 27.29,
+            "wind_speed_10m": 2.38
+        },
+        {
+            "date": "2026-03-04",
+            "aod_55": 0.07,
+            "temperature_2m": 28.16,
+            "wind_speed_10m": 2.43
+        },
+        {
+            "date": "2026-03-05",
+            "aod_55": 0.07,
+            "temperature_2m": 26.87,
+            "wind_speed_10m": 3.04
+        },
+        {
+            "date": "2026-03-06",
+            "aod_55": 0.04,
+            "temperature_2m": 26.43,
+            "wind_speed_10m": 2.64
+        },
+        {
+            "date": "2026-03-07",
+            "aod_55": 0.06,
+            "temperature_2m": 28.53,
+            "wind_speed_10m": 2.47
+        },
+        {
+            "date": "2026-03-08",
+            "aod_55": 0.1,
+            "temperature_2m": 28.91,
+            "wind_speed_10m": 2.09
+        },
+        {
+            "date": "2026-03-09",
+            "aod_55": 0.12,
+            "temperature_2m": 28.66,
+            "wind_speed_10m": 2.22
+        },
+        {
+            "date": "2026-03-10",
+            "aod_55": 0.15,
+            "temperature_2m": 28.9,
+            "wind_speed_10m": 2.55
+        },
+        {
+            "date": "2026-03-11",
+            "aod_55": 0.22,
+            "temperature_2m": 28.16,
+            "wind_speed_10m": 3.57
+        },
+        {
+            "date": "2026-03-12",
+            "aod_55": 0.2,
+            "temperature_2m": 27.75,
+            "wind_speed_10m": 4.12
+        },
+        {
+            "date": "2026-03-13",
+            "aod_55": 0.23,
+            "temperature_2m": 28.42,
+            "wind_speed_10m": 1.91
+        },
+        {
+            "date": "2026-03-14",
+            "aod_55": 0.32,
+            "temperature_2m": 29.07,
+            "wind_speed_10m": 3.52
+        },
+        {
+            "date": "2026-03-15",
+            "aod_55": 0.32,
+            "temperature_2m": 27.35,
+            "wind_speed_10m": 3.97
+        },
+        {
+            "date": "2026-03-16",
+            "aod_55": 0.26,
+            "temperature_2m": 26.23,
+            "wind_speed_10m": 4.05
+        },
+        {
+            "date": "2026-03-17",
+            "aod_55": 0.33,
+            "temperature_2m": 25.64,
+            "wind_speed_10m": 2.42
+        },
+        {
+            "date": "2026-03-18",
+            "aod_55": 0.44,
+            "temperature_2m": 25.75,
+            "wind_speed_10m": 4.99
+        },
+        {
+            "date": "2026-03-19",
+            "aod_55": 0.62,
+            "temperature_2m": 23.42,
+            "wind_speed_10m": 2.7
+        },
+        {
+            "date": "2026-03-20",
+            "aod_55": 0.45,
+            "temperature_2m": 23.42,
+            "wind_speed_10m": 2.75
+        },
+        {
+            "date": "2026-03-21",
+            "aod_55": 0.35,
+            "temperature_2m": 24.36,
+            "wind_speed_10m": 2.97
+        },
+        {
+            "date": "2026-03-22",
+            "aod_55": 0.32,
+            "temperature_2m": 26.3,
+            "wind_speed_10m": 2.41
+        },
+        {
+            "date": "2026-03-23",
+            "aod_55": 0.37,
+            "temperature_2m": 26.76,
+            "wind_speed_10m": 1.98
+        },
+        {
+            "date": "2026-03-24",
+            "aod_55": 0.26,
+            "temperature_2m": 28.29,
+            "wind_speed_10m": 2.19
+        },
+        {
+            "date": "2026-03-25",
+            "aod_55": 0.31,
+            "temperature_2m": 29.28,
+            "wind_speed_10m": 2.91
+        },
+        {
+            "date": "2026-03-26",
+            "aod_55": 0.22,
+            "temperature_2m": 28.08,
+            "wind_speed_10m": 2.21
+        },
+        {
+            "date": "2026-03-27",
+            "aod_55": 0.24,
+            "temperature_2m": 28.6,
+            "wind_speed_10m": 3.68
+        },
+        {
+            "date": "2026-03-28",
+            "aod_55": 0.28,
+            "temperature_2m": 28.83,
+            "wind_speed_10m": 3.82
+        },
+        {
+            "date": "2026-03-29",
+            "aod_55": 0.6,
+            "temperature_2m": 28.07,
+            "wind_speed_10m": 6.3
+        },
+        {
+            "date": "2026-03-30",
+            "aod_55": 0.5,
+            "temperature_2m": 25.56,
+            "wind_speed_10m": 2.56
+        },
+        {
+            "date": "2026-03-31",
+            "aod_55": 0.39,
+            "temperature_2m": 28.23,
+            "wind_speed_10m": 3.94
+        },
+        {
+            "date": "2026-04-01",
+            "aod_55": 0.11,
+            "temperature_2m": 28.27,
+            "wind_speed_10m": 2.5
+        },
+        {
+            "date": "2026-04-02",
+            "aod_55": 0.1,
+            "temperature_2m": 27.37,
+            "wind_speed_10m": 3.6
+        },
+        {
+            "date": "2026-04-03",
+            "aod_55": 0.12,
+            "temperature_2m": 26.22,
+            "wind_speed_10m": 3.84
+        },
+        {
+            "date": "2026-04-04",
+            "aod_55": 0.13,
+            "temperature_2m": 25.89,
+            "wind_speed_10m": 3.29
+        },
+        {
+            "date": "2026-04-05",
+            "aod_55": 0.25,
+            "temperature_2m": 25.69,
+            "wind_speed_10m": 3.3
+        },
+        {
+            "date": "2026-04-06",
+            "aod_55": 0.27,
+            "temperature_2m": 27.2,
+            "wind_speed_10m": 3.53
+        },
+        {
+            "date": "2026-04-07",
+            "aod_55": 0.96,
+            "temperature_2m": 25.56,
+            "wind_speed_10m": 5.8
+        },
+        {
+            "date": "2026-04-08",
+            "aod_55": 0.68,
+            "temperature_2m": 25.2,
+            "wind_speed_10m": 2.71
+        },
+        {
+            "date": "2026-04-09",
+            "aod_55": 0.31,
+            "temperature_2m": 25.78,
+            "wind_speed_10m": 3.45
+        },
+        {
+            "date": "2026-04-10",
+            "aod_55": 0.21,
+            "temperature_2m": 26.72,
+            "wind_speed_10m": 2.79
+        },
+        {
+            "date": "2026-04-11",
+            "aod_55": 0.21,
+            "temperature_2m": 29.07,
+            "wind_speed_10m": 4.04
+        },
+        {
+            "date": "2026-04-12",
+            "aod_55": 0.19,
+            "temperature_2m": 28.7,
+            "wind_speed_10m": 3.63
+        },
+        {
+            "date": "2026-04-13",
+            "aod_55": 0.23,
+            "temperature_2m": 30.77,
+            "wind_speed_10m": 3.29
+        },
+        {
+            "date": "2026-04-14",
+            "aod_55": 0.3,
+            "temperature_2m": 31.25,
+            "wind_speed_10m": 3.37
+        },
+        {
+            "date": "2026-04-15",
+            "aod_55": 0.23,
+            "temperature_2m": 32.89,
+            "wind_speed_10m": 1.96
+        },
+        {
+            "date": "2026-04-16",
+            "aod_55": 0.26,
+            "temperature_2m": 33.82,
+            "wind_speed_10m": 2.62
+        },
+        {
+            "date": "2026-04-17",
+            "aod_55": 0.19,
+            "temperature_2m": 33.08,
+            "wind_speed_10m": 3.77
+        },
+        {
+            "date": "2026-04-18",
+            "aod_55": 0.19,
+            "temperature_2m": 32.23,
+            "wind_speed_10m": 3.52
+        },
+        {
+            "date": "2026-04-19",
+            "aod_55": 0.29,
+            "temperature_2m": 31.59,
+            "wind_speed_10m": 3.08
+        },
+        {
+            "date": "2026-04-20",
+            "aod_55": 0.23,
+            "temperature_2m": 32.0,
+            "wind_speed_10m": 2.86
+        },
+        {
+            "date": "2026-04-21",
+            "aod_55": 0.18,
+            "temperature_2m": 32.74,
+            "wind_speed_10m": 4.15
+        },
+        {
+            "date": "2026-04-22",
+            "aod_55": 0.15,
+            "temperature_2m": 30.74,
+            "wind_speed_10m": 5.02
+        },
+        {
+            "date": "2026-04-23",
+            "aod_55": 0.16,
+            "temperature_2m": 30.96,
+            "wind_speed_10m": 2.84
+        },
+        {
+            "date": "2026-04-24",
+            "aod_55": 0.24,
+            "temperature_2m": 34.56,
+            "wind_speed_10m": 2.08
+        },
+        {
+            "date": "2026-04-25",
+            "aod_55": 0.31,
+            "temperature_2m": 36.45,
+            "wind_speed_10m": 2.36
+        },
+        {
+            "date": "2026-04-26",
+            "aod_55": 0.33,
+            "temperature_2m": 36.69,
+            "wind_speed_10m": 3.73
+        },
+        {
+            "date": "2026-04-27",
+            "aod_55": 0.28,
+            "temperature_2m": 35.93,
+            "wind_speed_10m": 5.61
+        },
+        {
+            "date": "2026-04-28",
+            "aod_55": 0.44,
+            "temperature_2m": 34.15,
+            "wind_speed_10m": 5.37
+        },
+        {
+            "date": "2026-04-29",
+            "aod_55": 0.68,
+            "temperature_2m": 34.84,
+            "wind_speed_10m": 4.56
+        }
+    ]
+}
