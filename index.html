@@ -245,7 +245,7 @@
         function loadMerra2Data() {
             const container = document.getElementById('merra2-data-container');
             
-            fetch('data/jodhpur_merra2.json')
+            fetch('data/jodhpur_merra2.json?t=' + new Date().getTime())
                 .then(response => {
                     if (!response.ok) throw new Error("Data file not found");
                     return response.json();
