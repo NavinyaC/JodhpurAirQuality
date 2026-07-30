@@ -150,10 +150,7 @@
             <div class="logo">Jodhpur AQ Portal</div>
             <ul class="nav-links">
                 <li><button onclick="switchTab('about', event)" class="active">About</button></li>
-                <li><button onclick="switchTab('cpcb', event)">CPCB</button></li>
-                <li><button onclick="switchTab('merra2', event)">MERRA-2</button></li>
-                <li><button onclick="switchTab('modis', event)">MODIS</button></li>
-                <li><button onclick="switchTab('ceres', event)">CERES</button></li>
+                <li><button onclick="switchTab('nasapower', event)">NASA POWER</button></li>
             </ul>
         </nav>
     </header>
@@ -172,18 +169,9 @@
             </div>
         </section>
 
-        <!-- CPCB Section -->
-        <section id="cpcb" class="tab-content">
-            <h2>CPCB (Central Pollution Control Board)</h2>
-            <p>Ground-level monitoring data for Particulate Matter ($PM_{2.5}$, $PM_{10}$) and trace gases from official local stations.</p>
-            <div id="cpcb-data-container">
-                <p><em>[Data visualization loading...]</em></p>
-            </div>
-        </section>
-
-        <!-- MERRA-2 Section -->
-        <section id="merra2" class="tab-content">
-            <h2>NASA MERRA-2 Reanalysis</h2>
+        <!-- NASA POWER Section -->
+        <section id="nasapower" class="tab-content">
+            <h2>NASA POWER (MERRA-2 Reanalysis)</h2>
             <p>Atmospheric reanalysis data providing insights into regional aerosol distribution and meteorological parameters for Jodhpur.</p>
             
             <div id="merra2-data-container">
@@ -206,46 +194,16 @@
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                 <h3>Panel 3: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
                 <p style="font-size: 0.9rem; color: var(--text-light);">
-                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier). 
-                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
+                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier)[cite: 1]. 
+                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>[cite: 1].
                 </p>
                 
+                <!-- Display Formula rendered via MathJax -->
                 <div class="formula-box">
                     $$PM_{2.5} = DUSMASS_{25} + OCSMASS + BCSMASS + SSSMASS_{25} + \left(SO4SMASS \times \frac{132.14}{96.06}\right)$$
                 </div>
 
                 <canvas id="pm25LineChart"></canvas>
-            </div>
-        </section>
-
-        <!-- MODIS Section -->
-        <section id="modis" class="tab-content">
-            <h2>MODIS Satellite Products</h2>
-            <p>Satellite-derived Aerosol Optical Depth (AOD) and related atmospheric products from Terra and Aqua satellites.</p>
-            <div id="modis-data-container">
-                <p><em>[Data visualization loading...]</em></p>
-            </div>
-        </section>
-
-        <!-- CERES Section -->
-        <section id="ceres" class="tab-content">
-            <h2>NASA CERES Radiation & Cloud Products</h2>
-            <p>Clouds and the Earth's Radiant Energy System (CERES) satellite observations detailing cloud properties and radiative fluxes for Jodhpur.</p>
-            
-            <div id="ceres-data-container">
-                <p><em>[Data visualization loading...]</em></p>
-            </div>
-
-            <!-- CERES Panel 1: Cloud Fraction -->
-            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 1: Cloud Amount / Fraction Trend</h3>
-                <canvas id="ceresCloudChart"></canvas>
-            </div>
-
-            <!-- CERES Panel 2: CERES AOD & Surface Solar Radiation -->
-            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 2: Aerosol Optical Depth & Surface Solar Radiation</h3>
-                <canvas id="ceresAodSwChart"></canvas>
             </div>
         </section>
 
@@ -255,10 +213,9 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Scripting for Tabs, MERRA-2, and CERES Charts -->
+    <!-- Scripting for Tabs and Three-Panel Charts -->
     <script>
         let chartsInitialized = false;
-        let ceresInitialized = false;
 
         function switchTab(tabId, event) {
             const sections = document.querySelectorAll('.tab-content');
@@ -270,11 +227,8 @@
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
 
-            if (tabId === 'merra2' && !chartsInitialized) {
+            if (tabId === 'nasapower' && !chartsInitialized) {
                 loadMerra2Data();
-            }
-            if (tabId === 'ceres' && !ceresInitialized) {
-                loadCeresData();
             }
         }
 
@@ -473,131 +427,6 @@
                 .catch(error => {
                     container.innerHTML = `<p style="color: #666;">Data file loading error.</p>`;
                     console.error("Error loading MERRA-2 data:", error);
-                });
-        }
-
-        function loadCeresData() {
-            const container = document.getElementById('ceres-data-container');
-            
-            fetch('data/jodhpur_ceres.json?t=' + new Date().getTime())
-                .then(response => {
-                    if (!response.ok) throw new Error("CERES data file not found");
-                    return response.json();
-                })
-                .then(data => {
-                    ceresInitialized = true;
-                    const latest = data.latest || {};
-                    const history = data.history || [];
-                    const formattedDate = latest.date ? new Date(latest.date).toLocaleDateString() : 'N/A';
-
-                    container.innerHTML = `
-                        <div style="background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 1rem;">
-                            <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">${data.location || 'Jodhpur'}</h3>
-                            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
-                                <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">Latest Cloud Fraction</span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #457b9d;">${(latest.cloud_fraction || 0).toFixed(2)}</div>
-                                </div>
-                                <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">CERES AOD (550nm)</span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${(latest.ceres_aod_55 || 0).toFixed(3)}</div>
-                                </div>
-                                <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">Surface Solar Radiation</span>
-                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.solar_radiation || 0).toFixed(1)} kWh/m²/day</div>
-                                </div>
-                            </div>
-                            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
-                                Snapshot Date: <strong>${formattedDate}</strong>
-                            </p>
-                        </div>
-                    `;
-
-                    const labels = history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
-                    
-                    // CERES Panel 1: Cloud Fraction Trend
-                    const ctxCloud = document.getElementById('ceresCloudChart').getContext('2d');
-                    new Chart(ctxCloud, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Cloud Amount / Fraction',
-                                data: history.map(item => item.cloud_fraction || 0),
-                                borderColor: '#457b9d',
-                                backgroundColor: 'rgba(69, 123, 157, 0.1)',
-                                borderWidth: 2,
-                                tension: 0.2,
-                                fill: true
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                x: { title: { display: true, text: 'Date' } },
-                                y: { title: { display: true, text: 'Cloud Fraction (0 - 1)' }, beginAtZero: true, max: 1 }
-                            }
-                        }
-                    });
-
-                    // CERES Panel 2: AOD & Surface Solar Radiation Dual-Axis Chart
-                    const ctxAodSw = document.getElementById('ceresAodSwChart').getContext('2d');
-                    new Chart(ctxAodSw, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: 'CERES AOD (550 nm)',
-                                    data: history.map(item => item.ceres_aod_55 || 0),
-                                    borderColor: '#8b5a2b',
-                                    backgroundColor: 'rgba(139, 90, 43, 0.05)',
-                                    borderWidth: 2,
-                                    yAxisID: 'y',
-                                    fill: false,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'Surface Solar Radiation (kWh/m²/day)',
-                                    data: history.map(item => item.solar_radiation || 0),
-                                    borderColor: '#e07a5f',
-                                    backgroundColor: 'rgba(224, 122, 95, 0.05)',
-                                    borderWidth: 2,
-                                    yAxisID: 'y1',
-                                    fill: false,
-                                    tension: 0.2
-                                }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                tooltip: { mode: 'index', intersect: false }
-                            },
-                            scales: {
-                                x: { title: { display: true, text: 'Date' } },
-                                y: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'left',
-                                    title: { display: true, text: 'AOD (550 nm)' },
-                                    beginAtZero: true
-                                },
-                                y1: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'right',
-                                    title: { display: true, text: 'Solar Radiation (kWh/m²/day)' },
-                                    grid: { drawOnChartArea: false },
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    container.innerHTML = `<p style="color: #666;">CERES data file loading... Make sure your python data fetcher or GitHub Action has executed to generate <code>data/jodhpur_ceres.json</code>.</p>`;
-                    console.error("Error loading CERES data:", error);
                 });
         }
     </script>
