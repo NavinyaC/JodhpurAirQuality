@@ -31,13 +31,36 @@ def main():
 
     missing_dates = [d for d in all_target_dates if f"{d[0:4]}-{d[4:6]}-{d[6:8]}" not in existing_dates]
 
-    if not missing_dates:
-        print("No missing dates to fetch. Dataset is fully up to date.")
+    # Even if no dates are missing, let's re-process existing history to ensure all component fields are present
+    if not missing_dates and existing_history:
+        print("Checking and updating existing history records with PM2.5 component fields...")
+        updated_history = []
+        for item in existing_history:
+            if 'dust_pm25' not in item:
+                aod = item.get('aod_55', 0.2)
+                item['dust_pm25'] = max(0.0, aod * 45.0)
+                item['oc_mass'] = max(0.0, aod * 8.0)
+                item['bc_mass'] = max(0.0, aod * 3.5)
+                item['ss_pm25'] = max(0.0, aod * 2.0)
+                item['so4_mass'] = max(0.0, aod * 12.0 * (132.14 / 96.06))
+                item['pm25_total'] = item['dust_pm25'] + item['oc_mass'] + item['bc_mass'] + item['ss_pm25'] + item['so4_mass']
+            updated_history.append(item)
+        
+        output = {
+            "last_automated_run": datetime.now().isoformat(),
+            "location": "Jodhpur (NASA MERRA-2 Collection Grid)",
+            "latest": updated_history[-1],
+            "history": updated_history
+        }
+        os.makedirs('data', exist_ok=True)
+        with open(DATA_FILE, 'w') as f:
+            json.dump(output, f, indent=4)
+        print("Successfully updated existing data structure with component fields.")
         return
 
     print(f"Found {len(missing_dates)} missing dates to backfill for 2026.")
-    min_missing_str = min(missing_dates)
-    max_missing_str = max(missing_dates)
+    min_missing_str = min(missing_dates) if missing_dates else start_date.strftime('%Y%m%d')
+    max_missing_str = max(missing_dates) if missing_dates else end_date.strftime('%Y%m%d')
 
     url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=AOD_55,T2M,WS10M&community=AG&longitude={LON}&latitude={LAT}&start={min_missing_str}&end={max_missing_str}&format=JSON"
     
@@ -53,7 +76,7 @@ def main():
     ws_series = parameters.get('WS10M', {})
 
     new_entries = []
-    for date_str in missing_dates:
+    for date_str in all_target_dates:
         aod_val = aod_series.get(date_str, -999.0)
         t2m_val = t2m_series.get(date_str, -999.0)
         ws_val = ws_series.get(date_str, -999.0)
@@ -61,12 +84,12 @@ def main():
         if aod_val != -999.0:
             formatted_date = f"{date_str[0:4]}-{date_str[4:6]}-{date_str[6:8]}"
             
-            # Computing components using tavg1_2d_aer_Nx diagnostics formulation:
-            dust_pm25 = max(0.0, aod_val * 45.0)      # DUSMASS25
-            oc_mass = max(0.0, aod_val * 8.0)         # OCSMASS
-            bc_mass = max(0.0, aod_val * 3.5)         # BCSMASS
-            ss_pm25 = max(0.0, aod_val * 2.0)         # SSSMASS25
-            so4_adjusted = max(0.0, aod_val * 12.0)   # SO4SMASS * (132.14 / 96.06)
+            # Component estimations mapping to diagnostics formulation
+            dust_pm25 = max(0.0, aod_val * 45.0)
+            oc_mass = max(0.0, aod_val * 8.0)
+            bc_mass = max(0.0, aod_val * 3.5)
+            ss_pm25 = max(0.0, aod_val * 2.0)
+            so4_adjusted = max(0.0, aod_val * 12.0 * (132.14 / 96.06))
             
             pm25_total = dust_pm25 + oc_mass + bc_mass + ss_pm25 + so4_adjusted
 
@@ -87,8 +110,7 @@ def main():
         print("No valid new data returned from API.")
         return
 
-    combined = {item['date']: item for item in (existing_history + new_entries)}
-    sorted_history = sorted(combined.values(), key=lambda x: x['date'])
+    sorted_history = sorted(new_entries, key=lambda x: x['date'])
 
     output = {
         "last_automated_run": datetime.now().isoformat(),
@@ -100,7 +122,7 @@ def main():
     os.makedirs('data', exist_ok=True)
     with open(DATA_FILE, 'w') as f:
         json.dump(output, f, indent=4)
-    print(f"Successfully updated dataset. Total records: {len(sorted_history)}")
+    print(f"Successfully rebuilt dataset. Total records: {len(sorted_history)}")
 
 if __name__ == "__main__":
     main()
