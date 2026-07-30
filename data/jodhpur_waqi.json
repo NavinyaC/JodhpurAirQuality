@@ -1,24 +1,24 @@
 {
-    "last_automated_run": "2026-07-30T13:12:32.965806",
-    "location": "Jodhpur, Jodhpur, India",
+    "last_automated_run": "2026-07-30T13:18:16.290940",
+    "location": "Collectorate, Jodhpur, India",
     "latest": {
-        "date": "2019-11-15 09:00:00",
-        "aqi": 83,
-        "pm25": 83,
-        "pm10": 54,
-        "temperature": 24.689999999999998,
-        "humidity": 79.60333333333334,
-        "wind_speed": 0.6666666666666666
+        "date": "2026-07-30 13:18:16",
+        "aqi": 107,
+        "pm25": 107,
+        "pm10": 70,
+        "temperature": 31.564999999999998,
+        "humidity": 57.715,
+        "wind_speed": 0.7849999999999999
     },
     "history": [
         {
-            "date": "2019-11-15 09:00:00",
-            "aqi": 83,
-            "pm25": 83,
-            "pm10": 54,
-            "temperature": 24.689999999999998,
-            "humidity": 79.60333333333334,
-            "wind_speed": 0.6666666666666666
+            "date": "2026-07-30 13:18:16",
+            "aqi": 107,
+            "pm25": 107,
+            "pm10": 70,
+            "temperature": 31.564999999999998,
+            "humidity": 57.715,
+            "wind_speed": 0.7849999999999999
         }
     ]
 }
