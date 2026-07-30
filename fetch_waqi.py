@@ -9,7 +9,7 @@ DATA_FILE = 'data/jodhpur_waqi.json'
 
 def main():
     url = f"https://api.waqi.info/feed/{CITY}/?token={TOKEN}"
-    print(f"Fetching WAQI data for {CITY}...")
+    print(f"Fetching live WAQI data for {CITY}...")
     response = requests.get(url)
     if response.status_code != 200:
         print(f"API Request Failed: {response.status_code}")
@@ -23,8 +23,10 @@ def main():
     data = result.get('data', {})
     iaqi = data.get('iaqi', {})
     
+    current_date_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
     entry = {
-        "date": data.get('time', {}).get('s', datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+        "date": current_date_str,
         "aqi": data.get('aqi', 0),
         "pm25": iaqi.get('pm25', {}).get('v', 0),
         "pm10": iaqi.get('pm10', {}).get('v', 0),
@@ -33,13 +35,21 @@ def main():
         "wind_speed": iaqi.get('w', {}).get('v', 0)
     }
 
+    # Load existing history and purge legacy entries prior to 2026
     history = []
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'r') as f:
             existing = json.load(f)
-            history = existing.get('history', [])
+            raw_history = existing.get('history', [])
+            history = [item for item in raw_history if item.get('date', '').startswith('2026')]
 
-    if not any(item['date'][:10] == entry['date'][:10] for item in history):
+    # Prevent duplicate entries for the same day, updating with the latest fetch
+    today_prefix = current_date_str[:10]
+    existing_entry = next((item for item in history if item['date'].startswith(today_prefix)), None)
+    
+    if existing_entry:
+        existing_entry.update(entry)
+    else:
         history.append(entry)
 
     output = {
@@ -52,7 +62,7 @@ def main():
     os.makedirs('data', exist_ok=True)
     with open(DATA_FILE, 'w') as f:
         json.dump(output, f, indent=4)
-    print("Successfully updated WAQI dataset.")
+    print("Successfully updated WAQI dataset with live 2026 data.")
 
 if __name__ == "__main__":
     main()
