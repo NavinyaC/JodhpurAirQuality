@@ -9,21 +9,14 @@ DATA_FILE = 'data/jodhpur_merra2.json'
 
 def main():
     start_date = datetime(2026, 1, 1)
-    today = datetime.now()
-    end_date = min(today, datetime.now() - timedelta(days=5)) 
-
-    all_target_dates = []
-    curr = start_date
-    while curr <= end_date:
-        all_target_dates.append(curr.strftime('%Y%m%d'))
-        curr += timedelta(days=1)
+    end_date = min(datetime.now(), datetime.now() - timedelta(days=4))
 
     min_str = start_date.strftime('%Y%m%d')
     max_str = end_date.strftime('%Y%m%d')
 
-    url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=AOD_55,T2M,WS10M&community=AG&longitude={LON}&latitude={LAT}&start={min_str}&end={max_str}&format=JSON"
+    url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,WS10M,AOD_55,DUSMASS25,OCSMASS,BCSMASS,SSSMASS25,SO4SMASS&community=AG&longitude={LON}&latitude={LAT}&start={min_str}&end={max_str}&format=JSON"
     
-    print(f"Fetching MERRA-2 data from NASA POWER for Jodhpur ({min_str} to {max_str})...")
+    print(f"Fetching NASA POWER MERRA-2 data for Jodhpur ({min_str} to {max_str})...")
     response = requests.get(url)
     if response.status_code != 200:
         print(f"API Request Failed: {response.status_code}")
@@ -31,63 +24,76 @@ def main():
 
     data = response.json()
     parameters = data.get('properties', {}).get('parameter', {})
-    aod_series = parameters.get('AOD_55', {})
-    t2m_series = parameters.get('T2M', {})
-    ws_series = parameters.get('WS10M', {})
+    
+    t2m = parameters.get('T2M', {})
+    ws10m = parameters.get('WS10M', {})
+    aod55 = parameters.get('AOD_55', {})
+    dust = parameters.get('DUSMASS25', {})
+    oc = parameters.get('OCSMASS', {})
+    bc = parameters.get('BCSMASS', {})
+    ss = parameters.get('SSSMASS25', {})
+    so4 = parameters.get('SO4SMASS', {})
 
-    new_entries = []
-    for date_str in all_target_dates:
-        aod_val = aod_series.get(date_str, -999.0)
-        t2m_val = t2m_series.get(date_str, -999.0)
-        ws_val = ws_series.get(date_str, -999.0)
+    curr = start_date
+    history = []
+    
+    while curr <= end_date:
+        date_str = curr.strftime('%Y%m%d')
+        formatted_date = curr.strftime('%Y-%m-%d')
+        
+        d_val = dust.get(date_str, -999.0)
+        oc_val = oc.get(date_str, -999.0)
+        bc_val = bc.get(date_str, -999.0)
+        ss_val = ss.get(date_str, -999.0)
+        so4_val = so4.get(date_str, -999.0)
+        t_val = t2m.get(date_str, -999.0)
+        ws_val = ws10m.get(date_str, -999.0)
+        aod_val = aod55.get(date_str, -999.0)
 
-        # Filter out NASA missing data fill values (-999.0)
-        if aod_val != -999.0:
-            formatted_date = f"{date_str[0:4]}-{date_str[4:6]}-{date_str[6:8]}"
+        if d_val != -999.0:
+            d_ug = d_val * 1e9
+            oc_ug = oc_val * 1e9 if oc_val != -999.0 else 0.0
+            bc_ug = bc_val * 1e9 if bc_val != -999.0 else 0.0
+            ss_ug = ss_val * 1e9 if ss_val != -999.0 else 0.0
+            so4_ug = so4_val * 1e9 * (132.14 / 96.06) if so4_val != -999.0 else 0.0
             
-            # MERRA-2 GOCART Component Mass Estimations scaled to µg/m³
-            # Reflecting Jodhpur's dust-dominant regime (DUSMASS25 forms the bulk of coarse/fine dust loading)
-            dust_pm25 = max(0.0, aod_val * 55.0)       # DUSMASS25 component
-            oc_mass = max(0.0, aod_val * 9.2)         # OCSMASS (Organic Carbon POM factor 1.8 included)
-            bc_mass = max(0.0, aod_val * 3.8)         # BCSMASS (Black Carbon)
-            ss_pm25 = max(0.0, aod_val * 2.5)         # SSSMASS25 (Sea Salt fine mode)
+            # Component estimations
+            pm25_total = d_ug + oc_ug + bc_ug + ss_ug + so4_ug
+            # PM1: sub-micron fraction (fine carbon, sulfate, fine sea salt, ~30% fine dust)
+            pm1 = (0.3 * d_ug) + oc_ug + bc_ug + (0.5 * ss_ug) + so4_ug
+            # PM10: includes coarse dust and larger sea-salt fractions
+            pm10 = pm25_total + (1.8 * d_ug)
             
-            # Sulfate adjusted to Ammonium Sulfate ((NH4)2SO4 multiplier 1.3756 as per MERRA-2 specs)
-            so4_base = max(0.0, aod_val * 14.0)
-            so4_adjusted = so4_base * 1.3756          # SO4SMASS * 1.3756
-            
-            pm25_total = dust_pm25 + oc_mass + bc_mass + ss_pm25 + so4_adjusted
-
-            new_entries.append({
+            history.append({
                 "date": formatted_date,
-                "aod_55": aod_val,
-                "temperature_2m": t2m_val,
-                "wind_speed_10m": ws_val,
-                "dust_pm25": dust_pm25,
-                "oc_mass": oc_mass,
-                "bc_mass": bc_mass,
-                "ss_pm25": ss_pm25,
-                "so4_mass": so4_adjusted,
-                "pm25_total": pm25_total
+                "aod_55": round(aod_val, 2) if aod_val != -999.0 else 0.0,
+                "pm1": round(pm1, 2),
+                "pm25_total": round(pm25_total, 2),
+                "pm10": round(pm10, 2),
+                "dust_pm25": round(d_ug, 2),
+                "oc_mass": round(oc_ug, 2),
+                "bc_mass": round(bc_ug, 2),
+                "ss_pm25": round(ss_ug, 2),
+                "so4_mass": round(so4_ug, 2),
+                "temperature_2m": round(t_val, 2) if t_val != -999.0 else 0.0,
+                "wind_speed_10m": round(ws_val, 2) if ws_val != -999.0 else 0.0
             })
+            
+        curr += timedelta(days=1)
 
-    if not new_entries:
-        print("No valid data returned from API.")
-        return
-
-    sorted_history = sorted(new_entries, key=lambda x: x['date'])
+    latest = history[-1] if history else {}
 
     output = {
         "last_automated_run": datetime.now().isoformat(),
-        "location": "Jodhpur (NASA MERRA-2 Collection Grid)",
-        "latest": sorted_history[-1],
-        "history": sorted_history
+        "location": "Jodhpur, India (NASA POWER / MERRA-2)",
+        "latest": latest,
+        "history": history
     }
 
     os.makedirs('data', exist_ok=True)
     with open(DATA_FILE, 'w') as f:
         json.dump(output, f, indent=4)
-    print(f"Successfully forced rebuild of dataset. Total records: {len(sorted_history)}")
+    print(f"Successfully generated Jodhpur MERRA-2 dataset with {len(history)} records.")
 
 if __name__ == "__main__":
     main()
