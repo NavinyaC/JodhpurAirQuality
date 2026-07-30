@@ -222,15 +222,6 @@
                 </div>
                 <canvas id="pm25LineChart"></canvas>
             </div>
-
-            <!-- Panel 4: PM1 - PM2.5 - PM10 Stacked Area Plot -->
-            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 4: Particulate Matter Size Fractions ($PM_1$, $PM_{2.5}$, $PM_{10}$)</h3>
-                <p style="font-size: 0.9rem; color: var(--text-light);">
-                    Stacked area plot illustrating sub-micron ($PM_1$), fine ($PM_{2.5}$), and coarse/total ($PM_{10}$) particulate fractions.
-                </p>
-                <canvas id="pmStackChart"></canvas>
-            </div>
         </section>
 
         <!-- WAQI Ground Stations Section -->
@@ -407,52 +398,6 @@
                             scales: {
                                 x: { title: { display: true, text: 'Date' } },
                                 y: { title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
-                            }
-                        }
-                    });
-
-                    // Panel 4: PM1 - PM2.5 - PM10 Stacked Area Plot
-                    const ctx4 = document.getElementById('pmStackChart').getContext('2d');
-                    new Chart(ctx4, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: 'PM1',
-                                    data: history.map(item => Number((item.pm1 || 0).toFixed(2))),
-                                    borderColor: '#e07a5f',
-                                    backgroundColor: 'rgba(224, 122, 95, 0.4)',
-                                    borderWidth: 2,
-                                    fill: true,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'PM2.5',
-                                    data: history.map(item => Number((item.pm25_total || 0).toFixed(2))),
-                                    borderColor: '#8b5a2b',
-                                    backgroundColor: 'rgba(139, 90, 43, 0.3)',
-                                    borderWidth: 2,
-                                    fill: true,
-                                    tension: 0.2
-                                },
-                                {
-                                    label: 'PM10',
-                                    data: history.map(item => Number((item.pm10 || 0).toFixed(2))),
-                                    borderColor: '#457b9d',
-                                    backgroundColor: 'rgba(69, 123, 157, 0.2)',
-                                    borderWidth: 2,
-                                    fill: true,
-                                    tension: 0.2
-                                }
-                            ]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { tooltip: { mode: 'index', intersect: false } },
-                            scales: {
-                                x: { stacked: false, title: { display: true, text: 'Date' } },
-                                y: { stacked: false, title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
                             }
                         }
                     });
