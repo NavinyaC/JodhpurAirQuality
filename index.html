@@ -6,6 +6,14 @@
     <title>Jodhpur Air Quality Portal</title>
     <!-- Chart.js CDN for interactive graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax Configuration to enable single $ ... $ for inline math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
     <!-- MathJax CDN for rendering LaTeX formulas natively in the browser -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
