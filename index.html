@@ -4,24 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jodhpur Air Quality Portal</title>
-    <!-- Chart.js CDN for interactive data visualization -->
+    <!-- Chart.js CDN for interactive graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* CSS Variables for Theme Colors */
         :root {
             --bg-color: #ffffff;
-            --section-bg: #fdfbf7; /* Very light brown/off-white */
-            --primary-brown: #8b5a2b; /* Classic brown for headers/accents */
+            --section-bg: #fdfbf7;
+            --primary-brown: #8b5a2b;
             --text-main: #333333;
             --text-light: #666666;
             --border-color: #e6dfd9;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,7 +25,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation Bar */
         header {
             background-color: var(--primary-brown);
             color: white;
@@ -49,11 +43,7 @@
             padding: 1rem 2rem;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
 
         .nav-links {
             list-style: none;
@@ -61,54 +51,52 @@
             gap: 2rem;
         }
 
-        .nav-links a {
+        .nav-links button {
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
+            font-size: 1rem;
             font-weight: 500;
+            cursor: pointer;
             transition: opacity 0.3s ease;
+            font-family: inherit;
         }
 
-        .nav-links a:hover {
+        .nav-links button:hover, .nav-links button.active {
             opacity: 0.8;
             text-decoration: underline;
         }
 
-        /* Main Content Container */
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Sections */
-        section {
-            padding: 4rem 2rem;
+        /* Tab Visibility Control */
+        .tab-content {
+            display: none;
+            padding: 3rem 2rem;
             margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
             background-color: var(--section-bg);
             border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
 
-        h1 {
+        .tab-content.active {
+            display: block;
+        }
+
+        h1, h2 {
             color: var(--primary-brown);
             margin-bottom: 1.5rem;
-            font-size: 2.5rem;
         }
 
-        h2 {
-            color: var(--primary-brown);
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
 
-        p {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
+        p { margin-bottom: 1rem; font-size: 1.1rem; }
 
-        /* Disclaimer Box */
         .disclaimer {
             background-color: #f9f5f0;
             border-left: 4px solid var(--primary-brown);
@@ -118,60 +106,53 @@
             color: var(--text-light);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
             background-color: var(--section-bg);
             color: var(--text-light);
             border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Header -->
+    <!-- Navigation Header with Clickable Tabs -->
     <header>
         <nav>
             <div class="logo">Jodhpur AQ Portal</div>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#cpcb">CPCB</a></li>
-                <li><a href="#merra2">MERRA-2</a></li>
-                <li><a href="#modis">MODIS</a></li>
-                <li><a href="#ceres">CERES</a></li>
+                <li><button onclick="switchTab('about', event)" class="active">About</button></li>
+                <li><button onclick="switchTab('cpcb', event)">CPCB</button></li>
+                <li><button onclick="switchTab('merra2', event)">MERRA-2</button></li>
+                <li><button onclick="switchTab('modis', event)">MODIS</button></li>
+                <li><button onclick="switchTab('ceres', event)">CERES</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content Sections -->
     <main>
         
-        <!-- About Section -->
-        <section id="about">
+        <!-- About Section (Default Active) -->
+        <section id="about" class="tab-content active">
             <h1>Welcome to Jodhpur Air Quality Portal</h1>
             <p>This portal shows near real-time air quality data from different publicly available platforms, aggregated to provide a comprehensive overview of atmospheric conditions in the Jodhpur region.</p>
-            <p>Our automated systems retrieve, process, and visualize data every 24 hours to assist researchers, students, and citizens in monitoring local air quality trends.</p>
+            <p>Our automated systems retrieve, process, and visualize data regularly to assist researchers, students, and citizens in monitoring local air quality trends.</p>
 
             <div class="disclaimer">
-                <strong>Disclaimer:</strong> We do not own or claim the data presented on this site. This portal only visualizes the data for public understanding and research purposes. For official data, raw downloads, and authoritative reporting, please visit the official websites of the respective data providers (CPCB, NASA, etc.).
+                <strong>Disclaimer:</strong> We do not own or claim the data presented on this site. This portal only visualizes data for public understanding and research purposes. For official data, please visit respective data provider portals.
             </div>
         </section>
 
         <!-- CPCB Section -->
-        <section id="cpcb">
+        <section id="cpcb" class="tab-content">
             <h2>CPCB (Central Pollution Control Board)</h2>
             <p>Ground-level monitoring data for Particulate Matter (PM2.5, PM10) and trace gases from official local stations.</p>
             <div id="cpcb-data-container">
@@ -180,24 +161,22 @@
         </section>
 
         <!-- MERRA-2 Section -->
-        <section id="merra2">
-            <h2>NASA MERRA-2</h2>
-            <p>Atmospheric reanalysis data providing insights into regional aerosol distribution and meteorological parameters.</p>
+        <section id="merra2" class="tab-content">
+            <h2>NASA MERRA-2 Reanalysis</h2>
+            <p>Atmospheric reanalysis data providing insights into regional aerosol distribution and meteorological parameters for Jodhpur.</p>
             
-            <!-- Target container for text stats summaries -->
             <div id="merra2-data-container">
                 <p><em>[Data visualization loading...]</em></p>
             </div>
             
-            <!-- Wrapper holding the trend graph canvas element -->
-            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1rem; border: 1px solid var(--border-color); border-radius: 8px;">
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                 <canvas id="merra2Chart"></canvas>
             </div>
         </section>
 
         <!-- MODIS Section -->
-        <section id="modis">
-            <h2>MODIS</h2>
+        <section id="modis" class="tab-content">
+            <h2>MODIS Satellite Products</h2>
             <p>Satellite-derived Aerosol Optical Depth (AOD) and related atmospheric products from Terra and Aqua satellites.</p>
             <div id="modis-data-container">
                 <p><em>[Data visualization loading...]</em></p>
@@ -205,8 +184,8 @@
         </section>
 
         <!-- CERES Section -->
-        <section id="ceres">
-            <h2>CERES</h2>
+        <section id="ceres" class="tab-content">
+            <h2>CERES Climate Metrics</h2>
             <p>Clouds and the Earth's Radiant Energy System data detailing solar radiation and climate metrics.</p>
             <div id="ceres-data-container">
                 <p><em>[Data visualization loading...]</em></p>
@@ -220,28 +199,42 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Async Data Pipeline and Chart Initialization -->
+    <!-- Tab Switching & Data Loading Scripts -->
     <script>
+        // Function to handle switching tabs smoothly
+        function switchTab(tabId, event) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.tab-content');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Remove active class from all nav buttons
+            const buttons = document.querySelectorAll('.nav-links button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show target section and highlight clicked button
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Fetch and load MERRA-2 Data when page loads
         document.addEventListener("DOMContentLoaded", () => {
-            const merra2Container = document.getElementById('merra2-data-container');
+            const container = document.getElementById('merra2-data-container');
             
-            // Asynchronously fetch the data payload updated by GitHub Actions workflow execution
             fetch('data/jodhpur_merra2.json')
                 .then(response => {
-                    if (!response.ok) throw new Error("MERRA-2 data snapshot array file not found");
+                    if (!response.ok) throw new Error("Data file not found");
                     return response.json();
                 })
                 .then(data => {
                     const latest = data.latest;
                     const formattedDate = new Date(latest.date).toLocaleDateString();
 
-                    // Inject processed statistical highlights into the layout DOM structure
-                    merra2Container.innerHTML = `
+                    container.innerHTML = `
                         <div style="background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 1rem;">
                             <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">${data.location}</h3>
                             <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                                 <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">Latest Aerosol Optical Depth (550nm)</span>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Latest AOD (550nm)</span>
                                     <div style="font-size: 2.5rem; font-weight: bold; color: ${latest.aod_55 > 0.5 ? '#d32f2f' : '#8b5a2b'};">${latest.aod_55.toFixed(3)}</div>
                                 </div>
                                 <div>
@@ -254,17 +247,14 @@
                                 </div>
                             </div>
                             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
-                                Most recent reanalysis snapshot: <strong>${formattedDate}</strong><br>
-                                Automated fetch run: ${new Date(data.last_automated_run).toLocaleString()}
+                                Snapshot Date: <strong>${formattedDate}</strong>
                             </p>
                         </div>
                     `;
 
-                    // Generate discrete axis indices from historical timeline timeline objects
                     const labels = data.history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
                     const aodValues = data.history.map(item => item.aod_55);
 
-                    // Build line chart instance linked directly inside the canvas layout context
                     const ctx = document.getElementById('merra2Chart').getContext('2d');
                     new Chart(ctx, {
                         type: 'line',
@@ -277,29 +267,20 @@
                                 backgroundColor: 'rgba(139, 90, 43, 0.1)',
                                 borderWidth: 2.5,
                                 tension: 0.2,
-                                fill: true,
-                                pointRadius: 3,
-                                pointHoverRadius: 6
+                                fill: true
                             }]
                         },
                         options: {
                             responsive: true,
-                            plugins: {
-                                legend: { display: true, position: 'top' }
-                            },
                             scales: {
                                 x: { title: { display: true, text: 'Date' } },
-                                y: { 
-                                    title: { display: true, text: 'AOD Value' },
-                                    beginAtZero: true
-                                }
+                                y: { title: { display: true, text: 'AOD Value' }, beginAtZero: true }
                             }
                         }
                     });
                 })
                 .catch(error => {
-                    merra2Container.innerHTML = `<p style="color: #666;">Waiting for the first automated GitHub Action run to generate analytical graphs...</p>`;
-                    console.error(error);
+                    container.innerHTML = `<p style="color: #666;">Waiting for initial data compilation workflow run...</p>`;
                 });
         });
     </script>
