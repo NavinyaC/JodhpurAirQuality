@@ -73,7 +73,6 @@
             padding: 2rem;
         }
 
-        /* Tab Visibility Control */
         .tab-content {
             display: none;
             padding: 3rem 2rem;
@@ -87,13 +86,14 @@
             display: block;
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             color: var(--primary-brown);
             margin-bottom: 1.5rem;
         }
 
         h1 { font-size: 2.5rem; }
         h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin-top: 1.5rem; }
 
         p { margin-bottom: 1rem; font-size: 1.1rem; }
 
@@ -123,7 +123,7 @@
 </head>
 <body>
 
-    <!-- Navigation Header with Clickable Tabs -->
+    <!-- Navigation Header -->
     <header>
         <nav>
             <div class="logo">Jodhpur AQ Portal</div>
@@ -140,7 +140,7 @@
     <!-- Main Content Sections -->
     <main>
         
-        <!-- About Section (Default Active) -->
+        <!-- About Section -->
         <section id="about" class="tab-content active">
             <h1>Welcome to Jodhpur Air Quality Portal</h1>
             <p>This portal shows near real-time air quality data from different publicly available platforms, aggregated to provide a comprehensive overview of atmospheric conditions in the Jodhpur region.</p>
@@ -169,8 +169,17 @@
                 <p><em>[Data visualization loading...]</em></p>
             </div>
             
+            <!-- Panel 1: AOD Trend -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Panel 1: Aerosol Optical Depth (550 nm) Trend</h3>
                 <canvas id="merra2Chart"></canvas>
+            </div>
+
+            <!-- Panel 2: Stacked Area Concentration Breakdown -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Panel 2: Particulate Matter ($PM_{2.5}$) Component Concentrations</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Calculated from <code>tavg1_2d_aer_Nx</code> collection diagnostics (Dust, Organic Carbon, Black Carbon, Sea Salt, and Sulfate).</p>
+                <canvas id="pm25StackedChart"></canvas>
             </div>
         </section>
 
@@ -194,29 +203,23 @@
 
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Tab Switching & Data Loading Scripts -->
+    <!-- Scripting for Tabs and Dual-Panel Charts -->
     <script>
-        // Function to handle switching tabs smoothly
         function switchTab(tabId, event) {
-            // Hide all sections
             const sections = document.querySelectorAll('.tab-content');
             sections.forEach(sec => sec.classList.remove('active'));
 
-            // Remove active class from all nav buttons
             const buttons = document.querySelectorAll('.nav-links button');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Show target section and highlight clicked button
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
         }
 
-        // Fetch and load MERRA-2 Data when page loads
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.getElementById('merra2-data-container');
             
@@ -235,7 +238,11 @@
                             <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Latest AOD (550nm)</span>
-                                    <div style="font-size: 2.5rem; font-weight: bold; color: ${latest.aod_55 > 0.5 ? '#d32f2f' : '#8b5a2b'};">${latest.aod_55.toFixed(3)}</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${latest.aod_55.toFixed(3)}</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Estimated $PM_{2.5}$</span>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${latest.pm25_total.toFixed(1)} µg/m³</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Temperature</span>
@@ -253,19 +260,19 @@
                     `;
 
                     const labels = data.history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
-                    const aodValues = data.history.map(item => item.aod_55);
-
-                    const ctx = document.getElementById('merra2Chart').getContext('2d');
-                    new Chart(ctx, {
+                    
+                    // Panel 1: AOD Line Chart
+                    const ctx1 = document.getElementById('merra2Chart').getContext('2d');
+                    new Chart(ctx1, {
                         type: 'line',
                         data: {
                             labels: labels,
                             datasets: [{
                                 label: 'Aerosol Optical Depth (550 nm)',
-                                data: aodValues,
+                                data: data.history.map(item => item.aod_55),
                                 borderColor: '#8b5a2b',
                                 backgroundColor: 'rgba(139, 90, 43, 0.1)',
-                                borderWidth: 2.5,
+                                borderWidth: 2,
                                 tension: 0.2,
                                 fill: true
                             }]
@@ -274,13 +281,75 @@
                             responsive: true,
                             scales: {
                                 x: { title: { display: true, text: 'Date' } },
-                                y: { title: { display: true, text: 'AOD Value' }, beginAtZero: true }
+                                y: { title: { display: true, text: 'AOD' }, beginAtZero: true }
+                            }
+                        }
+                    });
+
+                    // Panel 2: Stacked Area Concentration Chart
+                    const ctx2 = document.getElementById('pm25StackedChart').getContext('2d');
+                    new Chart(ctx2, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Dust ($DUSMASS_{25}$)',
+                                    data: data.history.map(item => item.dust_pm25),
+                                    borderColor: '#d4a373',
+                                    backgroundColor: 'rgba(212, 163, 115, 0.6)',
+                                    fill: true,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Sulfate ($SO_4$ Adjusted)',
+                                    data: data.history.map(item => item.so4_mass),
+                                    borderColor: '#457b9d',
+                                    backgroundColor: 'rgba(69, 123, 157, 0.6)',
+                                    fill: true,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Organic Carbon ($OCSMASS$)',
+                                    data: data.history.map(item => item.oc_mass),
+                                    borderColor: '#e07a5f',
+                                    backgroundColor: 'rgba(224, 122, 95, 0.6)',
+                                    fill: true,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Black Carbon ($BCSMASS$)',
+                                    data: data.history.map(item => item.bc_mass),
+                                    borderColor: '#212529',
+                                    backgroundColor: 'rgba(33, 37, 41, 0.6)',
+                                    fill: true,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Sea Salt ($SSSMASS_{25}$)',
+                                    data: data.history.map(item => item.ss_pm25),
+                                    borderColor: '#a8dadc',
+                                    backgroundColor: 'rgba(168, 218, 220, 0.6)',
+                                    fill: true,
+                                    tension: 0.2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                tooltip: { mode: 'index', intersect: false }
+                            },
+                            scales: {
+                                x: { stacked: true, title: { display: true, text: 'Date' } },
+                                y: { stacked: true, title: { display: true, text: 'Concentration ($\mu g/m^3$)' }, beginAtZero: true }
                             }
                         }
                     });
                 })
                 .catch(error => {
                     container.innerHTML = `<p style="color: #666;">Waiting for initial data compilation workflow run...</p>`;
+                    console.error(error);
                 });
         });
     </script>
