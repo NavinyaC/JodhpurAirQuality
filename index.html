@@ -217,6 +217,13 @@
 
                 <canvas id="pm25LineChart"></canvas>
             </div>
+
+            <!-- Panel 4: Scatter Plot (AOD vs PM2.5) -->
+            <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <h3>Panel 4: Correlation Scatter Plot (AOD vs. Total $PM_{2.5}$)</h3>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Relationship between Aerosol Optical Depth ($550\text{ nm}$) and estimated surface $PM_{2.5}$ mass concentration.</p>
+                <canvas id="scatterChart"></canvas>
+            </div>
         </section>
 
         <!-- MODIS Section -->
@@ -243,7 +250,7 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Scripting for Tabs, Statistical Computations, and Charts -->
+    <!-- Scripting for Tabs, Statistical Computations, and Multi-Panel Charts -->
     <script>
         let chartsInitialized = false;
 
@@ -302,7 +309,6 @@
                     const history = data.history || [];
                     const formattedDate = latest.date ? new Date(latest.date).toLocaleDateString() : 'N/A';
 
-                    // Compute statistics across history dataset
                     const stats = calculateStats(history);
 
                     container.innerHTML = `
@@ -326,7 +332,7 @@
                                     <div style="font-size: 1.5rem; font-weight: 500;">${(latest.wind_speed_10m || 0).toFixed(1)} m/s</div>
                                 </div>
                                 <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">Pearson ($r$ vs PM)</span>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Pearson ($r$)</span>
                                     <div style="font-size: 1.5rem; font-weight: 500; color: #457b9d;">${stats.r.toFixed(3)}</div>
                                 </div>
                                 <div>
@@ -335,7 +341,7 @@
                                 </div>
                             </div>
                             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
-                                Snapshot Date: <strong>${formattedDate}</strong> | Statistical metrics calculated over ${history.length} historical records.
+                                Snapshot Date: <strong>${formattedDate}</strong> | Metrics computed across ${history.length} historical entries.
                             </p>
                         </div>
                     `;
@@ -487,6 +493,41 @@
                             scales: {
                                 x: { stacked: false, title: { display: true, text: 'Date' } },
                                 y: { stacked: false, title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
+                            }
+                        }
+                    });
+
+                    // Panel 4: Scatter Plot (AOD vs Total PM2.5) with R^2 displayed in title
+                    const ctx4 = document.getElementById('scatterChart').getContext('2d');
+                    new Chart(ctx4, {
+                        type: 'scatter',
+                        data: {
+                            datasets: [{
+                                label: 'AOD vs. Total PM2.5',
+                                data: history.map(item => ({ x: item.aod_55 || 0, y: item.pm25_total || 0 })),
+                                backgroundColor: 'rgba(139, 90, 43, 0.6)',
+                                pointRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: `AOD vs. Total PM2.5 Correlation (R² = ${stats.r2.toFixed(3)})`,
+                                    font: { size: 14 }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `AOD: ${context.parsed.x.toFixed(3)}, PM2.5: ${context.parsed.y.toFixed(1)} µg/m³`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { title: { display: true, text: 'Aerosol Optical Depth (550 nm)' }, beginAtZero: true },
+                                y: { title: { display: true, text: 'Total PM2.5 (µg/m³)' }, beginAtZero: true }
                             }
                         }
                     });
