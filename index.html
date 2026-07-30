@@ -206,8 +206,8 @@
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                 <h3>Panel 3: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
                 <p style="font-size: 0.9rem; color: var(--text-light);">
-                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier). 
-                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
+                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier)[cite: 1]. 
+                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>[cite: 1].
                 </p>
                 
                 <!-- Display Formula rendered via MathJax -->
@@ -243,7 +243,7 @@
         <p>&copy; 2026 Jodhpur Air Quality Portal. Open-source research initiative.</p>
     </footer>
 
-    <!-- Scripting for Tabs and Three-Panel Charts -->
+    <!-- Scripting for Tabs, Statistical Computations, and Charts -->
     <script>
         let chartsInitialized = false;
 
@@ -262,6 +262,32 @@
             }
         }
 
+        // Function to compute Pearson correlation coefficient (r) and R-squared ($R^2$)
+        function calculateStats(history) {
+            if (!history || history.length === 0) return { r: 0, r2: 0 };
+            const n = history.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+            
+            history.forEach(item => {
+                const x = item.aod_55 || 0;
+                const y = item.pm25_total || 0;
+                sumX += x;
+                sumY += y;
+                sumXY += x * y;
+                sumX2 += x * x;
+                sumY2 += y * y;
+            });
+
+            const numerator = (n * sumXY) - (sumX * sumY);
+            const denominator = Math.sqrt(((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)));
+            
+            if (denominator === 0) return { r: 0, r2: 0 };
+            
+            const r = numerator / denominator;
+            const r2 = r * r;
+            return { r: r, r2: r2 };
+        }
+
         function loadMerra2Data() {
             const container = document.getElementById('merra2-data-container');
             
@@ -273,7 +299,11 @@
                 .then(data => {
                     chartsInitialized = true;
                     const latest = data.latest || {};
+                    const history = data.history || [];
                     const formattedDate = latest.date ? new Date(latest.date).toLocaleDateString() : 'N/A';
+
+                    // Compute statistics across history dataset
+                    const stats = calculateStats(history);
 
                     container.innerHTML = `
                         <div style="background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 1rem;">
@@ -295,14 +325,21 @@
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Wind Speed</span>
                                     <div style="font-size: 1.5rem; font-weight: 500;">${(latest.wind_speed_10m || 0).toFixed(1)} m/s</div>
                                 </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Pearson ($r$ vs PM)</span>
+                                    <div style="font-size: 1.5rem; font-weight: 500; color: #457b9d;">${stats.r.toFixed(3)}</div>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Coefficient ($R^2$)</span>
+                                    <div style="font-size: 1.5rem; font-weight: 500; color: #457b9d;">${stats.r2.toFixed(3)}</div>
+                                </div>
                             </div>
                             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
-                                Snapshot Date: <strong>${formattedDate}</strong>
+                                Snapshot Date: <strong>${formattedDate}</strong> | Statistical metrics calculated over ${history.length} historical records.
                             </p>
                         </div>
                     `;
 
-                    const history = data.history || [];
                     const labels = history.map(item => new Date(item.date).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}));
                     
                     // Panel 1: AOD Line Chart
