@@ -143,7 +143,7 @@
             <ul class="nav-links">
                 <li><button onclick="switchTab('about', event)" class="active">About</button></li>
                 <li><button onclick="switchTab('cpcb', event)">CPCB</button></li>
-                <li><button onclick="switchTab('merra2', event)" class="">MERRA-2</button></li>
+                <li><button onclick="switchTab('merra2', event)">MERRA-2</button></li>
                 <li><button onclick="switchTab('modis', event)">MODIS</button></li>
                 <li><button onclick="switchTab('ceres', event)">CERES</button></li>
             </ul>
@@ -184,14 +184,17 @@
             
             <!-- Panel 1: AOD Trend -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 1: Aerosol Optical Depth (550 nm) Trend</h3>
+                <h3>Panel 1: Aerosol Optical Depth ($550\text{ nm}$) Trend</h3>
                 <canvas id="merra2Chart"></canvas>
             </div>
 
             <!-- Panel 2: Multi-Line Concentration Breakdown -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
                 <h3>Panel 2: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
-                <p style="font-size: 0.9rem; color: var(--text-light);">Calculated from <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier).</p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">
+                    Calculated from the <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier). 
+                    For more details, visit the official <a href="https://gmao.gsfc.nasa.gov/gmao-products/merra-2/faq_merra-2/" target="_blank" style="color: var(--primary-brown); text-decoration: underline;">NASA MERRA-2 FAQ</a>.
+                </p>
                 
                 <!-- Display Formula rendered via MathJax -->
                 <div class="formula-box">
