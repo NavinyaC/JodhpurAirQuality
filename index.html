@@ -83,6 +83,20 @@
             padding: 2rem;
         }
 
+        .development-banner {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
         .tab-content {
             display: none;
             padding: 3rem 2rem;
@@ -159,6 +173,12 @@
     <!-- Main Content Sections -->
     <main>
         
+        <!-- Under Development Yellow Banner -->
+        <div class="development-banner">
+            <span style="font-size: 1.3rem;">⚠️</span>
+            <span><strong>Notice:</strong> This web portal is currently under active development. Data pipelines and visualizations are subject to continuous refinement.</span>
+        </div>
+
         <!-- About Section -->
         <section id="about" class="tab-content active">
             <h1>Welcome to Jodhpur Air Quality Portal</h1>
@@ -272,19 +292,19 @@
                             <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Latest AOD (550nm)</span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${(latest.aod_55 || 0).toFixed(3)}</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${(latest.aod_55 || 0).toFixed(2)}</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Total Estimated PM<sub>2.5</sub></span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${(latest.pm25_total || 0).toFixed(1)} µg/m³</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${(latest.pm25_total || 0).toFixed(2)} µg/m³</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Temperature</span>
-                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.temperature_2m || 0).toFixed(1)} °C</div>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.temperature_2m || 0).toFixed(2)} °C</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Wind Speed</span>
-                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.wind_speed_10m || 0).toFixed(1)} m/s</div>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.wind_speed_10m || 0).toFixed(2)} m/s</div>
                                 </div>
                             </div>
                             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
@@ -302,7 +322,7 @@
                             labels: labels,
                             datasets: [{
                                 label: 'Aerosol Optical Depth (550 nm)',
-                                data: history.map(item => item.aod_55 || 0),
+                                data: history.map(item => Number((item.aod_55 || 0).toFixed(2))),
                                 borderColor: '#8b5a2b',
                                 backgroundColor: 'rgba(139, 90, 43, 0.1)',
                                 borderWidth: 2,
@@ -327,7 +347,7 @@
                             datasets: [
                                 {
                                     label: 'Temperature (°C)',
-                                    data: history.map(item => item.temperature_2m || 0),
+                                    data: history.map(item => Number((item.temperature_2m || 0).toFixed(2))),
                                     borderColor: '#e07a5f',
                                     backgroundColor: 'rgba(224, 122, 95, 0.05)',
                                     borderWidth: 2,
@@ -337,7 +357,7 @@
                                 },
                                 {
                                     label: 'Wind Speed (m/s)',
-                                    data: history.map(item => item.wind_speed_10m || 0),
+                                    data: history.map(item => Number((item.wind_speed_10m || 0).toFixed(2))),
                                     borderColor: '#457b9d',
                                     backgroundColor: 'rgba(69, 123, 157, 0.05)',
                                     borderWidth: 2,
@@ -380,7 +400,7 @@
                             datasets: [
                                 {
                                     label: 'Total PM2.5',
-                                    data: history.map(item => item.pm25_total || 0),
+                                    data: history.map(item => Number((item.pm25_total || 0).toFixed(2))),
                                     borderColor: '#d32f2f',
                                     backgroundColor: 'rgba(211, 47, 47, 0.05)',
                                     borderWidth: 3,
@@ -389,7 +409,7 @@
                                 },
                                 {
                                     label: 'Dust (DUSMASS25)',
-                                    data: history.map(item => item.dust_pm25 || 0),
+                                    data: history.map(item => Number((item.dust_pm25 || 0).toFixed(2))),
                                     borderColor: '#d4a373',
                                     borderWidth: 2,
                                     fill: false,
@@ -397,7 +417,7 @@
                                 },
                                 {
                                     label: 'Sulfate (SO4 Adjusted)',
-                                    data: history.map(item => item.so4_mass || 0),
+                                    data: history.map(item => Number((item.so4_mass || 0).toFixed(2))),
                                     borderColor: '#457b9d',
                                     borderWidth: 2,
                                     fill: false,
@@ -405,7 +425,7 @@
                                 },
                                 {
                                     label: 'Organic Carbon (OCSMASS)',
-                                    data: history.map(item => item.oc_mass || 0),
+                                    data: history.map(item => Number((item.oc_mass || 0).toFixed(2))),
                                     borderColor: '#e07a5f',
                                     borderWidth: 2,
                                     fill: false,
@@ -413,7 +433,7 @@
                                 },
                                 {
                                     label: 'Black Carbon (BCSMASS)',
-                                    data: history.map(item => item.bc_mass || 0),
+                                    data: history.map(item => Number((item.bc_mass || 0).toFixed(2))),
                                     borderColor: '#212529',
                                     borderWidth: 2,
                                     fill: false,
@@ -421,7 +441,7 @@
                                 },
                                 {
                                     label: 'Sea Salt (SSSMASS25)',
-                                    data: history.map(item => item.ss_pm25 || 0),
+                                    data: history.map(item => Number((item.ss_pm25 || 0).toFixed(2))),
                                     borderColor: '#a8dadc',
                                     borderWidth: 2,
                                     fill: false,
@@ -467,19 +487,19 @@
                             <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Air Quality Index (AQI)</span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${latest.aqi || 0}</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${(latest.aqi || 0).toFixed(2)}</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">PM<sub>2.5</sub></span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${latest.pm25 || 0} µg/m³</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${(latest.pm25 || 0).toFixed(2)} µg/m³</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">PM<sub>10</sub></span>
-                                    <div style="font-size: 2.2rem; font-weight: bold; color: #457b9d;">${latest.pm10 || 0} µg/m³</div>
+                                    <div style="font-size: 2.2rem; font-weight: bold; color: #457b9d;">${(latest.pm10 || 0).toFixed(2)} µg/m³</div>
                                 </div>
                                 <div>
                                     <span style="font-size: 0.9rem; color: var(--text-light);">Temperature</span>
-                                    <div style="font-size: 1.5rem; font-weight: 500;">${latest.temperature || 0} °C</div>
+                                    <div style="font-size: 1.5rem; font-weight: 500;">${(latest.temperature || 0).toFixed(2)} °C</div>
                                 </div>
                             </div>
                             <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-light);">
@@ -498,7 +518,7 @@
                             datasets: [
                                 {
                                     label: 'AQI',
-                                    data: history.map(item => item.aqi || 0),
+                                    data: history.map(item => Number((item.aqi || 0).toFixed(2))),
                                     borderColor: '#d32f2f',
                                     backgroundColor: 'rgba(211, 47, 47, 0.05)',
                                     borderWidth: 2,
@@ -508,7 +528,7 @@
                                 },
                                 {
                                     label: 'PM2.5 (µg/m³)',
-                                    data: history.map(item => item.pm25 || 0),
+                                    data: history.map(item => Number((item.pm25 || 0).toFixed(2))),
                                     borderColor: '#8b5a2b',
                                     backgroundColor: 'rgba(139, 90, 43, 0.05)',
                                     borderWidth: 2,
