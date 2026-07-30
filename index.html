@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jodhpur Air Quality Portal</title>
+    <!-- Chart.js CDN for interactive graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax CDN for rendering LaTeX formulas natively in the browser -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
             --bg-color: #ffffff;
@@ -101,10 +104,10 @@
             border-left: 4px solid var(--primary-brown);
             padding: 1rem 1.5rem;
             margin: 1rem 0;
-            font-family: monospace;
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
             border-radius: 4px;
+            text-align: center;
         }
 
         .disclaimer {
@@ -140,7 +143,7 @@
             <ul class="nav-links">
                 <li><button onclick="switchTab('about', event)" class="active">About</button></li>
                 <li><button onclick="switchTab('cpcb', event)">CPCB</button></li>
-                <li><button onclick="switchTab('merra2', event)">MERRA-2</button></li>
+                <li><button onclick="switchTab('merra2', event)" class="">MERRA-2</button></li>
                 <li><button onclick="switchTab('modis', event)">MODIS</button></li>
                 <li><button onclick="switchTab('ceres', event)">CERES</button></li>
             </ul>
@@ -185,17 +188,17 @@
                 <canvas id="merra2Chart"></canvas>
             </div>
 
-            <!-- Panel 2: Stacked Area Concentration Breakdown -->
+            <!-- Panel 2: Multi-Line Concentration Breakdown -->
             <div style="width: 100%; margin-top: 2rem; background: white; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 8px;">
-                <h3>Panel 2: Particulate Matter ($PM_{2.5}$) Component Concentrations</h3>
+                <h3>Panel 2: Particulate Matter ($PM_{2.5}$) Component Concentrations & Total</h3>
                 <p style="font-size: 0.9rem; color: var(--text-light);">Calculated from <code>tavg1_2d_aer_Nx</code> collection diagnostics scaled from $\text{kg/m}^3$ to $\mu\text{g/m}^3$ ($10^9$ multiplier).</p>
                 
-                <!-- Display Formula -->
+                <!-- Display Formula rendered via MathJax -->
                 <div class="formula-box">
                     $$PM_{2.5} = DUSMASS_{25} + OCSMASS + BCSMASS + SSSMASS_{25} + \left(SO4SMASS \times \frac{132.14}{96.06}\right)$$
                 </div>
 
-                <canvas id="pm25StackedChart"></canvas>
+                <canvas id="pm25LineChart"></canvas>
             </div>
         </section>
 
@@ -264,7 +267,7 @@
                                     <div style="font-size: 2.2rem; font-weight: bold; color: #8b5a2b;">${(latest.aod_55 || 0).toFixed(3)}</div>
                                 </div>
                                 <div>
-                                    <span style="font-size: 0.9rem; color: var(--text-light);">Total Estimated $PM_{2.5}$</span>
+                                    <span style="font-size: 0.9rem; color: var(--text-light);">Total Estimated PM2.5</span>
                                     <div style="font-size: 2.2rem; font-weight: bold; color: #d32f2f;">${(latest.pm25_total || 0).toFixed(1)} µg/m³</div>
                                 </div>
                                 <div>
@@ -310,51 +313,60 @@
                         }
                     });
 
-                    // Panel 2: Stacked Area Concentration Chart
-                    const ctx2 = document.getElementById('pm25StackedChart').getContext('2d');
+                    // Panel 2: Multi-Line Concentration Chart (Unstacked, with Total PM2.5 line)
+                    const ctx2 = document.getElementById('pm25LineChart').getContext('2d');
                     new Chart(ctx2, {
                         type: 'line',
                         data: {
                             labels: labels,
                             datasets: [
                                 {
-                                    label: 'Dust ($DUSMASS_{25}$)',
+                                    label: 'Total PM2.5',
+                                    data: history.map(item => item.pm25_total || 0),
+                                    borderColor: '#d32f2f',
+                                    backgroundColor: 'rgba(211, 47, 47, 0.05)',
+                                    borderWidth: 3,
+                                    fill: false,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Dust (DUSMASS25)',
                                     data: history.map(item => item.dust_pm25 || 0),
                                     borderColor: '#d4a373',
-                                    backgroundColor: 'rgba(212, 163, 115, 0.6)',
-                                    fill: true,
+                                    borderWidth: 2,
+                                    fill: false,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Sulfate ($SO_4$ Adjusted)',
+                                    label: 'Sulfate (SO4 Adjusted)',
                                     data: history.map(item => item.so4_mass || 0),
                                     borderColor: '#457b9d',
-                                    backgroundColor: 'rgba(69, 123, 157, 0.6)',
-                                    fill: true,
+                                    borderWidth: 2,
+                                    fill: false,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Organic Carbon ($OCSMASS$)',
+                                    label: 'Organic Carbon (OCSMASS)',
                                     data: history.map(item => item.oc_mass || 0),
                                     borderColor: '#e07a5f',
-                                    backgroundColor: 'rgba(224, 122, 95, 0.6)',
-                                    fill: true,
+                                    borderWidth: 2,
+                                    fill: false,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Black Carbon ($BCSMASS$)',
+                                    label: 'Black Carbon (BCSMASS)',
                                     data: history.map(item => item.bc_mass || 0),
                                     borderColor: '#212529',
-                                    backgroundColor: 'rgba(33, 37, 41, 0.6)',
-                                    fill: true,
+                                    borderWidth: 2,
+                                    fill: false,
                                     tension: 0.2
                                 },
                                 {
-                                    label: 'Sea Salt ($SSSMASS_{25}$)',
+                                    label: 'Sea Salt (SSSMASS25)',
                                     data: history.map(item => item.ss_pm25 || 0),
                                     borderColor: '#a8dadc',
-                                    backgroundColor: 'rgba(168, 218, 220, 0.6)',
-                                    fill: true,
+                                    borderWidth: 2,
+                                    fill: false,
                                     tension: 0.2
                                 }
                             ]
@@ -365,14 +377,14 @@
                                 tooltip: { mode: 'index', intersect: false }
                             },
                             scales: {
-                                x: { stacked: true, title: { display: true, text: 'Date' } },
-                                y: { stacked: true, title: { display: true, text: 'Concentration ($\mu g/m^3$)' }, beginAtZero: true }
+                                x: { stacked: false, title: { display: true, text: 'Date' } },
+                                y: { stacked: false, title: { display: true, text: 'Concentration (µg/m³)' }, beginAtZero: true }
                             }
                         }
                     });
                 })
                 .catch(error => {
-                    container.innerHTML = `<p style="color: #666;">Data file loading... Make sure your GitHub Action has successfully run at least once to generate <code>data/jodhpur_merra2.json</code>.</p>`;
+                    container.innerHTML = `<p style="color: #666;">Data file loading error.</p>`;
                     console.error("Error loading MERRA-2 data:", error);
                 });
         }
